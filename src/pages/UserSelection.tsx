@@ -8,8 +8,8 @@ const mockUsers = [
   {
     name: "Sarah Johnson",
     rentalId: "SXT-2025-4892",
-    pickupDate: "Nov 22, 2025 - 14:00",
-    returnDate: "Nov 27, 2025 - 14:00",
+    pickupDate: "Jul 22, 2025 - 14:00",
+    returnDate: "Jul 27, 2025 - 14:00",
     email: "sarah.johnson@email.com",
     location: "Munich, Germany",
     role: "customer",
@@ -43,7 +43,7 @@ const UserSelection = () => {
   const navigate = useNavigate();
 
   const handleUserSelect = (user: typeof mockUsers[0]) => {
-    navigate("/rental", { state: { customer: user } });
+    navigate("/loading", { state: { customer: user } });
   };
 
   return (
