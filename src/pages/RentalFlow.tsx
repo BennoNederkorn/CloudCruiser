@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import CustomerHeader from "@/components/CustomerHeader";
 import CurrentCarCard from "@/components/CurrentCarCard";
 import CarSuggestionCard from "@/components/CarSuggestionCard";
 import UpsellPrompt from "@/components/UpsellPrompt";
 import { Button } from "@/components/ui/button";
+import { ApiVehicle } from "@/types";
 import { toast } from "sonner";
 import { ArrowRight, Check } from "lucide-react";
 import {
@@ -121,6 +122,80 @@ const RentalFlow = () => {
   const [hasUpgraded, setHasUpgraded] = useState(false);
   const [upgradedCar, setUpgradedCar] = useState<typeof mockCars[0] | null>(null);
   const [showCarousel, setShowCarousel] = useState(true);
+  const [allCars, setAllCars] = useState(mockCars);
+
+  useEffect(() => {
+    const fetchAndReplaceCar = async () => {
+      console.log("Starting to fetch and replace car...");
+      try {
+        // Step 1: Create a booking to get a booking ID
+        const bookingResponse = await fetch(`/api/booking`, {
+          method: "POST",
+        });
+        if (!bookingResponse.ok) throw new Error("Failed to create booking.");
+        const bookingData = await bookingResponse.json();
+        const bookingId = bookingData.id;
+        console.log("bookingId: ", bookingId);
+        
+        // Step 2: Fetch vehicles
+        const vehiclesResponse = await fetch(`/api/booking/${bookingId}/vehicles`);
+        if (!vehiclesResponse.ok) throw new Error("Failed to fetch vehicles.");
+        const responseData = await vehiclesResponse.json();
+        console.log("Full response from /vehicles:", responseData); // Log the whole object
+
+        // Assuming the array is inside a "vehicles" property
+        const dealsData = responseData.deals; 
+
+        if (dealsData && dealsData.length > 0) {
+          // Use .map() to loop over each deal and transform it into a car object
+          const updatedCars = dealsData.map((deal) => {
+            const apiCar = deal.vehicle;
+            const apiPricing = deal.pricing;
+
+            // This is the same mapping logic as before, but now inside a loop
+            return {
+              id: apiCar.id,
+              name: `${apiCar.brand} ${apiCar.model}`,
+              model: apiCar.modelAnnex,
+              imageUrl: apiCar.images[0],
+              pricePerDay: apiPricing.displayPrice.amount,
+              features: apiCar.upsellReasons.map(reason => reason.title).slice(0, 4),
+              specs: {
+                mileage: apiCar.attributes.find(attr => attr.key.includes("MILEAGE"))?.value || "N/A",
+                seats: apiCar.passengersCount,
+                luggage: apiCar.bagsCount,
+              },
+            };
+          });
+
+    //           id: "1",
+    // name: "BMW SERIES 3",
+    // model: "330i XDRIVE",
+    // imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
+    // pricePerDay: 14.58,
+    // features: [
+    //   "Luxurious Comfort",
+    //   "Experience elegance and unrivaled comfort.",
+    //   "Smart Technology",
+    //   "Drive innovation with seamless integration.",
+    // ],
+    // specs: {
+    //   mileage: "<1k miles",
+    //   seats: 5,
+    //   luggage: 4,
+    // },
+
+          // Replace the entire list of cars with the new ones from the API
+          setAllCars(updatedCars);
+        }
+      } catch (error) {
+        console.error("Error fetching car from API:", error);
+        toast.error("Could not load a recommended car from our partner.");
+      }
+    };
+
+    fetchAndReplaceCar();
+  }, []);
 
   const handleUpgrade = (car: typeof mockCars[0]) => {
     setHasUpgraded(true);
@@ -229,7 +304,7 @@ const RentalFlow = () => {
               }}
             >
               <CarouselContent className="-ml-2 md:-ml-4">
-                {mockCars.map((car) => (
+                {allCars.map((car) => (
                   <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
                     <CarSuggestionCard 
                       car={car} 
