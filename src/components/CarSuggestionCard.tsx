@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { Gauge, Users, Luggage } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Gauge, Users, Luggage, ArrowRight } from "lucide-react";
 
 interface CarSuggestionCardProps {
   car: {
@@ -14,9 +15,10 @@ interface CarSuggestionCardProps {
       luggage: number;
     };
   };
+  onUpgrade?: () => void;
 }
 
-const CarSuggestionCard = ({ car }: CarSuggestionCardProps) => {
+const CarSuggestionCard = ({ car, onUpgrade }: CarSuggestionCardProps) => {
   return (
     <div className="bg-card rounded-xl overflow-hidden shadow-elevated">
       <div className="relative h-64 bg-gradient-to-br from-muted to-secondary">
@@ -27,7 +29,7 @@ const CarSuggestionCard = ({ car }: CarSuggestionCardProps) => {
         />
         <div className="absolute top-4 left-4">
           <Badge className="bg-gradient-orange text-primary-foreground border-0">
-            AI Recommended
+            Our Recommendation
           </Badge>
         </div>
       </div>
@@ -64,6 +66,16 @@ const CarSuggestionCard = ({ car }: CarSuggestionCardProps) => {
           <span className="text-3xl font-bold text-foreground">+ us${car.pricePerDay}</span>
           <span className="text-muted-foreground">/day</span>
         </div>
+
+        {onUpgrade && (
+          <Button
+            onClick={onUpgrade}
+            className="w-full mt-4 bg-gradient-orange hover:opacity-90 text-primary-foreground border-0 h-12 text-base font-semibold shadow-glow"
+          >
+            Upgrade to this Car
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        )}
       </div>
     </div>
   );
