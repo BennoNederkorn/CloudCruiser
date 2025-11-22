@@ -7,6 +7,13 @@ import UpsellPrompt from "@/components/UpsellPrompt";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ArrowRight, Check } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 // Mock data - will be replaced with API calls
 const defaultCustomer = {
@@ -20,26 +27,65 @@ const currentCar = {
   name: "TOYOTA COROLLA",
   model: "SEDAN 2024",
   imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80",
-  pricePerDay: 35.99,
+  pricePerDay: 39.99,
 };
 
-const mockCar = {
-  name: "BMW SERIES 3",
-  model: "330i XDRIVE",
-  imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
-  pricePerDay: 14.58,
-  features: [
-    "Luxurious Comfort",
-    "Experience elegance and unrivaled comfort.",
-    "Smart Technology",
-    "Drive innovation with seamless integration.",
-  ],
-  specs: {
-    mileage: "<1k miles",
-    seats: 5,
-    luggage: 4,
+const mockCars = [
+  {
+    id: "1",
+    name: "BMW SERIES 3",
+    model: "330i XDRIVE",
+    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
+    pricePerDay: 14.58,
+    features: [
+      "Luxurious Comfort",
+      "Experience elegance and unrivaled comfort.",
+      "Smart Technology",
+      "Drive innovation with seamless integration.",
+    ],
+    specs: {
+      mileage: "<1k miles",
+      seats: 5,
+      luggage: 4,
+    },
   },
-};
+  {
+    id: "2",
+    name: "MERCEDES C-CLASS",
+    model: "C300 4MATIC",
+    imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
+    pricePerDay: 16.99,
+    features: [
+      "Premium Performance",
+      "Power meets sophistication on every drive.",
+      "Advanced Safety",
+      "Cutting-edge systems for ultimate protection.",
+    ],
+    specs: {
+      mileage: "<500 miles",
+      seats: 5,
+      luggage: 3,
+    },
+  },
+  {
+    id: "3",
+    name: "AUDI A4",
+    model: "QUATTRO PREMIUM",
+    imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
+    pricePerDay: 15.75,
+    features: [
+      "Dynamic Design",
+      "Sleek aesthetics with powerful handling.",
+      "Tech-Forward",
+      "Intuitive controls and connectivity.",
+    ],
+    specs: {
+      mileage: "<2k miles",
+      seats: 5,
+      luggage: 4,
+    },
+  },
+];
 
 const mockUpsells = [
   {
@@ -73,10 +119,13 @@ const RentalFlow = () => {
   const [acceptedUpsells, setAcceptedUpsells] = useState<string[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
   const [hasUpgraded, setHasUpgraded] = useState(false);
+  const [upgradedCar, setUpgradedCar] = useState<typeof mockCars[0] | null>(null);
+  const [showCarousel, setShowCarousel] = useState(true);
 
-  const handleUpgrade = () => {
+  const handleUpgrade = (car: typeof mockCars[0]) => {
     setHasUpgraded(true);
-    toast.success(`Upgraded to ${mockCar.name}!`);
+    setUpgradedCar(car);
+    toast.success(`Upgraded to ${car.name}!`);
   };
 
   const handleAccept = () => {
@@ -101,7 +150,7 @@ const RentalFlow = () => {
   };
 
   const calculateTotal = () => {
-    let total = hasUpgraded ? currentCar.pricePerDay + mockCar.pricePerDay : currentCar.pricePerDay;
+    let total = hasUpgraded && upgradedCar ? upgradedCar.pricePerDay + currentCar.pricePerDay : currentCar.pricePerDay;
     acceptedUpsells.forEach(id => {
       const upsell = mockUpsells.find(u => u.id === id);
       if (upsell) total += upsell.price;
@@ -122,14 +171,10 @@ const RentalFlow = () => {
               Your rental is configured and ready to go.
             </p>
             <div className="bg-secondary rounded-lg p-6 mb-6">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-foreground">Base rental</span>
-                <span className="text-foreground">${currentCar.pricePerDay}/day</span>
-              </div>
-              {hasUpgraded && (
+              {hasUpgraded && upgradedCar && (
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-foreground">Car upgrade to {mockCar.name}</span>
-                  <span className="text-foreground">+${mockCar.pricePerDay}/day</span>
+                  <span className="text-foreground">Car upgrade to {upgradedCar.name}</span>
+                  <span className="text-foreground">+${upgradedCar.pricePerDay}/day</span>
                 </div>
               )}
               {acceptedUpsells.map(id => {
@@ -165,14 +210,35 @@ const RentalFlow = () => {
         <div className="pt-4">
           <CustomerHeader customer={customer} />
         </div>
-
+        
         <div>
-          <CurrentCarCard car={currentCar} />
+          <CurrentCarCard car={currentCar} onClick={() => setShowCarousel(false)} />
         </div>
-
-        <div>
-          <CarSuggestionCard car={mockCar} onUpgrade={hasUpgraded ? undefined : handleUpgrade} />
+        
+        {showCarousel && (
+          <div className="relative">
+          <Carousel 
+            className="w-full"
+            opts={{
+              align: "center",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {mockCars.map((car) => (
+                <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
+                  <CarSuggestionCard 
+                    car={car} 
+                    onUpgrade={hasUpgraded ? undefined : () => handleUpgrade(car)} 
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2" />
+            <CarouselNext className="right-2" />
+          </Carousel>
         </div>
+        )}
         
         <div>
           <UpsellPrompt

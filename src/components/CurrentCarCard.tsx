@@ -6,11 +6,15 @@ interface CurrentCarCardProps {
     model: string;
     imageUrl: string;
   };
+  onClick?: () => void;
 }
 
-const CurrentCarCard = ({ car }: CurrentCarCardProps) => {
+const CurrentCarCard = ({ car, onClick }: CurrentCarCardProps) => {
   return (
-    <div className="bg-card rounded-xl p-4 shadow-elevated border border-border/50">
+    <div 
+      className="bg-card rounded-xl p-4 shadow-elevated border border-border/50 cursor-pointer hover:border-accent/50 transition-colors"
+      onClick={onClick}
+    >
       <div className="flex items-center gap-3">
         <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
           <img
