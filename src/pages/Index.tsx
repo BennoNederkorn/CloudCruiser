@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom"; // [NEW] Import hook to read navigation state
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2, Sparkles, Check } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import CarSuggestionCard from "@/components/CarSuggestionCard";
 import UpsellPrompt from "@/components/UpsellPrompt";
 import CustomerHeader from "@/components/CustomerHeader";
@@ -11,22 +13,68 @@ import { sixt_personas } from "@/data/dummyPersonas";
 import { useCloudCruiserPipeline } from "@/hooks/useCloudCruiserPipeline";
 import { SixtPersona } from "@/types/persona";
 import * as SixtApi from "@/api/mockSixtApi";
-import { SixtVehicle } from "@/types/sixt-api";
+import { SixtVehicle, SixtDeal } from "@/types/sixt-api";
 
 const Index = () => {
-  const [selectedPersonaId, setSelectedPersonaId] = useState<string>("persona_01");
-  const [currentPersona, setCurrentPersona] = useState<SixtPersona>(sixt_personas["persona_01"]);
-  const [vehicle, setVehicle] = useState<SixtVehicle | null>(null);
+  // [NEW] 1. Read the passed Persona ID from the previous screen
+  const location = useLocation();
+  
+  // Initialize state with the passed ID, or fallback to "persona_01"
+  const [selectedPersonaId, setSelectedPersonaId] = useState<string>(
+    location.state?.selectedPersonaId || "persona_01"
+  );
+  
+  const [currentPersona, setCurrentPersona] = useState<SixtPersona>(
+    sixt_personas[selectedPersonaId] || sixt_personas["persona_01"]
+  );
+  
+  // 2. Data State
+  const [upgradeDeal, setUpgradeDeal] = useState<SixtDeal | null>(null);
+  const [apiLoading, setApiLoading] = useState(true);
 
-  // Load Initial Car Data
+  // 3. Fetch Data (Simulate Sixt Backend)
   useEffect(() => {
-    SixtApi.getAvailableVehicles().then(data => {
-      if (data.deals.length > 0) setVehicle(data.deals[0].vehicle);
-    });
+    const fetchData = async () => {
+        setApiLoading(true);
+        const data = await SixtApi.getAvailableVehicles();
+        // Find the deal labeled "DISCOUNT" or take the 2nd one as upgrade
+        const target = data.deals.find(d => d.dealInfo === "DISCOUNT") || data.deals[1] || data.deals[0];
+        setUpgradeDeal(target);
+        setApiLoading(false);
+    };
+    fetchData();
   }, []);
 
-  // Run AI Pipeline
-  const { systemPrompt, backgroundUrl, prioritizedAddons, loading } = useCloudCruiserPipeline(currentPersona, vehicle);
+  // Update current persona if selection changes via Dropdown or Navigation
+  useEffect(() => {
+    if (sixt_personas[selectedPersonaId]) {
+      setCurrentPersona(sixt_personas[selectedPersonaId]);
+    }
+  }, [selectedPersonaId]);
+
+  // 4. Run AI Pipeline (Gemini)
+  const { systemPrompt, backgroundUrl, prioritizedAddons, loading: aiLoading } = useCloudCruiserPipeline(
+    currentPersona, 
+    upgradeDeal?.vehicle || null
+  );
+
+  const [step, setStep] = useState(0);
+  const [accepted, setAccepted] = useState<string[]>([]);
+  const [finished, setFinished] = useState(false);
+
+  const handleAccept = () => {
+    setAccepted([...accepted, prioritizedAddons[step]]);
+    toast.success("Added!");
+    if (step < prioritizedAddons.length - 1) setStep(s => s + 1);
+    else setFinished(true);
+  };
+
+  const handleDecline = () => {
+    if (step < prioritizedAddons.length - 1) setStep(s => s + 1);
+    else setFinished(true);
+  };
+
+  const isLoading = apiLoading || aiLoading;
 
   return (
     <div 
@@ -48,29 +96,42 @@ const Index = () => {
            </div>
            <Select value={selectedPersonaId} onValueChange={(v) => {
              setSelectedPersonaId(v);
-             setCurrentPersona(sixt_personas[v]);
+             setStep(0); 
+             setFinished(false);
+             setAccepted([]);
            }}>
-             <SelectTrigger className="w-[140px] h-8 text-black bg-white/90">
-                <SelectValue />
-             </SelectTrigger>
+             <SelectTrigger className="w-[180px] h-8 text-black bg-white/90"><SelectValue /></SelectTrigger>
              <SelectContent>
-                <SelectItem value="persona_01">Max (Business/Stress)</SelectItem>
-                <SelectItem value="persona_02">Sarah (Family/Safe)</SelectItem>
-                <SelectItem value="persona_03">Lena (Gen Z/Vibe)</SelectItem>
-                <SelectItem value="persona_04">Dr. Von Amsel (Luxury)</SelectItem>
-                <SelectItem value="persona_05">Hans Müller (Senior/Safety)</SelectItem>
+               <SelectItem value="persona_01">Max (Business/Stress)</SelectItem>
+               <SelectItem value="persona_02">Sarah (Family/Safe)</SelectItem>
+               <SelectItem value="persona_03">Lena (Gen Z/Vibe)</SelectItem>
+               <SelectItem value="persona_04">Dr. Von Amsel (Luxury)</SelectItem>
+               <SelectItem value="persona_05">Hans Müller (Senior/Safety)</SelectItem>
              </SelectContent>
            </Select>
         </div>
 
-        {loading ? (
+        {isLoading ? (
            <div className="h-[60vh] flex flex-col items-center justify-center text-white space-y-4">
              <Loader2 className="w-12 h-12 animate-spin text-orange-500" />
-             <p>Consulting Gemini AI...</p>
+             <p className="font-medium">Consulting Gemini AI...</p>
+             <p className="text-xs text-white/50">Analyzing {currentPersona.core_profile.name}'s profile</p>
            </div>
+        ) : finished ? (
+            <div className="bg-card rounded-xl p-8 text-center border border-border/50 mt-10 animate-in zoom-in-95">
+                <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Check className="w-8 h-8 text-green-500" />
+                </div>
+                <h2 className="text-2xl font-bold mb-2">Ready to Drive!</h2>
+                <div className="text-left bg-secondary/50 p-4 rounded-lg mb-4">
+                    <p className="text-xs font-bold text-muted-foreground uppercase mb-2">Summary</p>
+                    <div className="text-sm mb-1 text-foreground">Vehicle: {upgradeDeal?.vehicle.brand} {upgradeDeal?.vehicle.model}</div>
+                    {accepted.map(a => <div key={a} className="text-sm mb-1 text-green-600 font-medium">+ {a}</div>)}
+                </div>
+                <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold" onClick={() => toast.success("Vehicle Unlocked!")}>Unlock in App</Button>
+            </div>
         ) : (
            <>
-             {/* Customer Header */}
              <CustomerHeader customer={{
                name: currentPersona.core_profile.name,
                rentalId: "SXT-GEMINI-01",
@@ -78,36 +139,33 @@ const Index = () => {
                returnDate: "In 3 days"
              }} />
 
-             {/* Car Card (With dynamic background via parent) */}
-             {vehicle && <CarSuggestionCard car={{
-                name: `${vehicle.brand} ${vehicle.model}`,
-                model: vehicle.groupType,
-                imageUrl: vehicle.images[0],
-                pricePerDay: 25,
-                features: ["Auto", "GPS"],
+             {upgradeDeal && <CarSuggestionCard car={{
+                name: `${upgradeDeal.vehicle.brand} ${upgradeDeal.vehicle.model}`,
+                model: upgradeDeal.vehicle.groupType,
+                imageUrl: upgradeDeal.vehicle.images[0],
+                pricePerDay: upgradeDeal.pricing.displayPrice.amount,
+                features: upgradeDeal.vehicle.attributes.map(a => a.value),
                 specs: { mileage: "Ultd", seats: 5, luggage: 2 }
              }} />}
 
-             {/* Upsell Prompt (Prioritized by AI) */}
-             {prioritizedAddons.length > 0 && (
+             {prioritizedAddons[step] && (
                <UpsellPrompt 
                  upsell={{
-                   id: "ai-1",
-                   title: prioritizedAddons[0],
-                   description: "Recommended for your trip to " + currentPersona.current_trip_context.destination,
+                   id: `ai-${step}`,
+                   title: prioritizedAddons[step],
+                   description: `Recommended for ${currentPersona.current_trip_context.trip_purpose} trip to ${currentPersona.current_trip_context.destination}`,
                    price: 15,
                    icon: "✨"
                  }}
-                 onAccept={() => toast.success("Added!")}
-                 onDecline={() => {}}
-                 currentStep={1}
-                 totalSteps={3}
+                 onAccept={handleAccept}
+                 onDecline={handleDecline}
+                 currentStep={step}
+                 totalSteps={prioritizedAddons.length}
                />
              )}
              
-             {/* Debug View */}
-             <div className="bg-black/80 p-2 rounded text-[10px] text-green-400 font-mono mt-4">
-               AI SYSTEM PROMPT: {systemPrompt}
+             <div className="bg-black/80 p-3 rounded-lg text-[10px] text-green-400 font-mono mt-4 border border-green-900/50 shadow-lg">
+               <span className="font-bold text-green-500">AI SYSTEM PROMPT:</span> {systemPrompt}
              </div>
            </>
         )}
