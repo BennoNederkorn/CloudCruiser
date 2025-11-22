@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Gauge, Users, Luggage, ArrowRight } from "lucide-react";
+import { Gauge, Users, Luggage, ArrowRight, Check } from "lucide-react";
 
 interface CarSuggestionCardProps {
   car: {
@@ -16,9 +16,10 @@ interface CarSuggestionCardProps {
     };
   };
   onUpgrade?: () => void;
+  isSelected?: boolean;
 }
 
-const CarSuggestionCard = ({ car, onUpgrade }: CarSuggestionCardProps) => {
+const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProps) => {
   return (
     <div className="bg-card rounded-xl overflow-hidden shadow-elevated">
       <div className="relative h-64 bg-gradient-to-br from-muted to-secondary">
@@ -70,10 +71,23 @@ const CarSuggestionCard = ({ car, onUpgrade }: CarSuggestionCardProps) => {
         {onUpgrade && (
           <Button
             onClick={onUpgrade}
-            className="w-full mt-4 bg-gradient-orange hover:opacity-90 text-primary-foreground border-0 h-12 text-base font-semibold shadow-glow"
+            className={`w-full mt-4 border-0 h-12 text-base font-semibold transition-all ${
+              isSelected 
+                ? "bg-accent/20 text-accent border-2 border-accent shadow-[0_0_20px_rgba(var(--accent),0.3)]" 
+                : "bg-gradient-orange hover:opacity-90 text-primary-foreground shadow-glow"
+            }`}
           >
-            Upgrade to this Car
-            <ArrowRight className="w-5 h-5 ml-2" />
+            {isSelected ? (
+              <>
+                <Check className="w-5 h-5 mr-2" />
+                Selected
+              </>
+            ) : (
+              <>
+                Upgrade to this Car
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </>
+            )}
           </Button>
         )}
       </div>

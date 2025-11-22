@@ -171,6 +171,10 @@ const RentalFlow = () => {
               Your rental is configured and ready to go.
             </p>
             <div className="bg-secondary rounded-lg p-6 mb-6">
+                <div className="flex justify-between items-center mb-2">
+                    <span className="text-foreground">Base rental {currentCar.name}</span>
+                    <span className="text-foreground">${currentCar.pricePerDay}/day</span>
+                </div>
               {hasUpgraded && upgradedCar && (
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-foreground">Car upgrade to {upgradedCar.name}</span>
@@ -215,29 +219,39 @@ const RentalFlow = () => {
           <CurrentCarCard car={currentCar} onClick={() => setShowCarousel(false)} />
         </div>
         
-        {showCarousel && (
+        {showCarousel ? (
           <div className="relative">
-          <Carousel 
-            className="w-full"
-            opts={{
-              align: "center",
-              loop: true,
-            }}
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {mockCars.map((car) => (
-                <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
-                  <CarSuggestionCard 
-                    car={car} 
-                    onUpgrade={hasUpgraded ? undefined : () => handleUpgrade(car)} 
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-2" />
-            <CarouselNext className="right-2" />
-          </Carousel>
-        </div>
+            <Carousel 
+              className="w-full"
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {mockCars.map((car) => (
+                  <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
+                    <CarSuggestionCard 
+                      car={car} 
+                      onUpgrade={() => handleUpgrade(car)}
+                      isSelected={upgradedCar?.id === car.id} 
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
+          </div>
+        ) : (
+          <div>
+            <Button
+              onClick={() => setShowCarousel(true)}
+              className="w-full bg-gradient-orange hover:opacity-90 text-primary-foreground border-0 h-12 text-base font-semibold shadow-glow"
+            >
+              See Recommended Options
+            </Button>
+          </div>
         )}
         
         <div>
