@@ -233,7 +233,8 @@ const RentalFlow = () => {
                   <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
                     <CarSuggestionCard 
                       car={car} 
-                      onUpgrade={hasUpgraded ? undefined : () => handleUpgrade(car)} 
+                      onUpgrade={() => handleUpgrade(car)}
+                      isSelected={upgradedCar?.id === car.id} 
                     />
                   </CarouselItem>
                 ))}
