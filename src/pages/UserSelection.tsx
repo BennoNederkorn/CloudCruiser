@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, User } from "lucide-react";
+import { generateNanoBananaImage } from "@/lib/gemini";
 
 const mockUsers = [
   {
@@ -10,6 +11,10 @@ const mockUsers = [
     pickupDate: "Nov 22, 2025 - 14:00",
     returnDate: "Nov 27, 2025 - 14:00",
     email: "sarah.johnson@email.com",
+    location: "Munich, Germany",
+    role: "customer",
+    enviroment: "mountainous terrain",
+    time: "14.07.2025",
   },
   {
     name: "Michael Chen",
