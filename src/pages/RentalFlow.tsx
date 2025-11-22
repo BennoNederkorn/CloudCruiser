@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import CustomerHeader from "@/components/CustomerHeader";
+import CurrentCarCard from "@/components/CurrentCarCard";
 import CarSuggestionCard from "@/components/CarSuggestionCard";
 import UpsellPrompt from "@/components/UpsellPrompt";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,13 @@ const defaultCustomer = {
   rentalId: "SXT-2025-4892",
   pickupDate: "Nov 22, 2025 - 14:00",
   returnDate: "Nov 27, 2025 - 14:00",
+};
+
+const currentCar = {
+  name: "TOYOTA COROLLA",
+  model: "SEDAN 2024",
+  imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80",
+  pricePerDay: 35.99,
 };
 
 const mockCar = {
@@ -64,6 +72,12 @@ const RentalFlow = () => {
   const [currentUpsellIndex, setCurrentUpsellIndex] = useState(0);
   const [acceptedUpsells, setAcceptedUpsells] = useState<string[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
+  const [hasUpgraded, setHasUpgraded] = useState(false);
+
+  const handleUpgrade = () => {
+    setHasUpgraded(true);
+    toast.success(`Upgraded to ${mockCar.name}!`);
+  };
 
   const handleAccept = () => {
     const currentUpsell = mockUpsells[currentUpsellIndex];
@@ -87,7 +101,7 @@ const RentalFlow = () => {
   };
 
   const calculateTotal = () => {
-    let total = mockCar.pricePerDay;
+    let total = hasUpgraded ? currentCar.pricePerDay + mockCar.pricePerDay : currentCar.pricePerDay;
     acceptedUpsells.forEach(id => {
       const upsell = mockUpsells.find(u => u.id === id);
       if (upsell) total += upsell.price;
@@ -110,8 +124,14 @@ const RentalFlow = () => {
             <div className="bg-secondary rounded-lg p-6 mb-6">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-foreground">Base rental</span>
-                <span className="text-foreground">${mockCar.pricePerDay}/day</span>
+                <span className="text-foreground">${currentCar.pricePerDay}/day</span>
               </div>
+              {hasUpgraded && (
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-foreground">Car upgrade to {mockCar.name}</span>
+                  <span className="text-foreground">+${mockCar.pricePerDay}/day</span>
+                </div>
+              )}
               {acceptedUpsells.map(id => {
                 const upsell = mockUpsells.find(u => u.id === id);
                 return upsell ? (
@@ -145,9 +165,13 @@ const RentalFlow = () => {
         <div className="pt-4">
           <CustomerHeader customer={customer} />
         </div>
-        
+
         <div>
-          <CarSuggestionCard car={mockCar} />
+          <CurrentCarCard car={currentCar} />
+        </div>
+
+        <div>
+          <CarSuggestionCard car={mockCar} onUpgrade={hasUpgraded ? undefined : handleUpgrade} />
         </div>
         
         <div>
