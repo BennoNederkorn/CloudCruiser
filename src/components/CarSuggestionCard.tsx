@@ -1,0 +1,72 @@
+import { Badge } from "@/components/ui/badge";
+import { Gauge, Users, Luggage } from "lucide-react";
+
+interface CarSuggestionCardProps {
+  car: {
+    name: string;
+    model: string;
+    imageUrl: string;
+    pricePerDay: number;
+    features: string[];
+    specs: {
+      mileage: string;
+      seats: number;
+      luggage: number;
+    };
+  };
+}
+
+const CarSuggestionCard = ({ car }: CarSuggestionCardProps) => {
+  return (
+    <div className="bg-card rounded-xl overflow-hidden shadow-elevated">
+      <div className="relative h-64 bg-gradient-to-br from-muted to-secondary">
+        <img
+          src={car.imageUrl}
+          alt={car.name}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute top-4 left-4">
+          <Badge className="bg-gradient-orange text-primary-foreground border-0">
+            AI Recommended
+          </Badge>
+        </div>
+      </div>
+      
+      <div className="p-6">
+        <h3 className="text-2xl font-bold text-foreground">{car.name}</h3>
+        <p className="text-muted-foreground">{car.model}</p>
+        
+        <div className="flex gap-6 mt-4 pb-4 border-b border-border">
+          <div className="flex items-center gap-2">
+            <Gauge className="w-4 h-4 text-accent" />
+            <span className="text-sm text-foreground">{car.specs.mileage}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-accent" />
+            <span className="text-sm text-foreground">{car.specs.seats}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Luggage className="w-4 h-4 text-accent" />
+            <span className="text-sm text-foreground">{car.specs.luggage}</span>
+          </div>
+        </div>
+        
+        <div className="mt-4 space-y-2">
+          {car.features.map((feature, idx) => (
+            <div key={idx} className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+              <span className="text-sm text-foreground">{feature}</span>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-6 flex items-baseline gap-1">
+          <span className="text-3xl font-bold text-foreground">+ us${car.pricePerDay}</span>
+          <span className="text-muted-foreground">/day</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CarSuggestionCard;
