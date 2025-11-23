@@ -1,12 +1,14 @@
-import { Badge } from "@/components/ui/badge";
-import { Gauge, Users, Luggage } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Gauge, Users, Luggage, ArrowRight, Check } from "lucide-react";
 
 interface CarSuggestionCardProps {
   car: {
     name: string;
     model: string;
     imageUrl: string;
+    imageBase64: string;
     pricePerDay: number;
+    currency: string;
     features: string[];
     specs: {
       mileage: string;
@@ -14,22 +16,19 @@ interface CarSuggestionCardProps {
       luggage: number;
     };
   };
+  onUpgrade?: () => void;
+  isSelected?: boolean;
 }
 
-const CarSuggestionCard = ({ car }: CarSuggestionCardProps) => {
+const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProps) => {
   return (
     <div className="bg-card rounded-xl overflow-hidden shadow-elevated">
       <div className="relative h-64 bg-gradient-to-br from-muted to-secondary">
         <img
-          src={car.imageUrl}
+          src={car.imageBase64}
           alt={car.name}
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-4 left-4">
-          <Badge className="bg-gradient-orange text-primary-foreground border-0">
-            AI Recommended
-          </Badge>
-        </div>
       </div>
       
       <div className="p-6">
@@ -61,9 +60,32 @@ const CarSuggestionCard = ({ car }: CarSuggestionCardProps) => {
         </div>
         
         <div className="mt-6 flex items-baseline gap-1">
-          <span className="text-3xl font-bold text-foreground">+ us${car.pricePerDay}</span>
+          <span className="text-3xl font-bold text-foreground">+ {car.currency}{car.pricePerDay}</span>
           <span className="text-muted-foreground">/day</span>
         </div>
+
+        {onUpgrade && (
+          <Button
+            onClick={onUpgrade}
+            className={`w-full mt-4 border-0 h-12 text-base font-semibold transition-all ${
+              isSelected 
+                ? "bg-accent/20 text-accent border-2 border-accent shadow-[0_0_20px_rgba(var(--accent),0.3)]" 
+                : "bg-gradient-orange hover:opacity-90 text-primary-foreground shadow-glow"
+            }`}
+          >
+            {isSelected ? (
+              <>
+                <Check className="w-5 h-5 mr-2" />
+                Selected
+              </>
+            ) : (
+              <>
+                Upgrade to this Car
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </>
+            )}
+          </Button>
+        )}
       </div>
     </div>
   );
