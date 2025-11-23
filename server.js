@@ -30,7 +30,8 @@ app.post("/api/generate-background", async (req, res) => {
     // 2. Construct the Prompt
     const promptText = `Create a Backgound for the attached image. 
   Context: The vehicle is located in ${userInfo.location} at ${userInfo.time}.The enviroment should be ${userInfo.enviroment}.
-  Style: Realistic, Cinematic Lighting, No Black Bars.
+  Style: Realistic, Cinematic Lighting.
+  Ratio: 3:2.
   Do not change the vehicle itself. Focus on enhancing the background only.`;
 
     // 3. Call Gemini

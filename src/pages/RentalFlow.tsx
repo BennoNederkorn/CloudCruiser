@@ -128,7 +128,7 @@ const mockUpsells = [
 const RentalFlow = () => {
   const location = useLocation();
   // Receive cars from the loading page, fallback to mockCars if not provided
-  const {customer, cars} = location.state || {customer: defaultCustomer, cars: mockCars};
+  const {customer, cars, profile} = location.state || {customer: defaultCustomer, cars: mockCars, profile: null};
 
   //const [allCars, setAllCars] = useState<FormattedCar[]>(() => {
     // Set the generated image for each car
@@ -150,16 +150,8 @@ const RentalFlow = () => {
       console.log("RentalFlow received customer:", customer);
       let personalizedUpsells = null;
 
-      if (customer.name === "Iulia Pasov") {
-        const profile = await generateProfileFromFiles('/scrapeOutput/Iulia.txt', '/vehicles.json');
-        console.log("profile: ", profile)
-        console.log("Type of profile:", typeof profile);
+      if (profile) {
         personalizedUpsells = await generatePersonalizedUpsellsFromObject(profile);
-        console.log("personalizedUpsells: ", personalizedUpsells)
-      } else if (customer.name === "Marcus Thorne") {
-        personalizedUpsells = await generatePersonalizedUpsellsFromObject("/scrapeOutputs/MarcusThorne.json");
-      } else if (customer.name === "Family Miller") {
-        personalizedUpsells = await generatePersonalizedUpsellsFromObject("/scrapeOutputs/MillerFamily.json");
       } else {
         personalizedUpsells = mockUpsells;
       }

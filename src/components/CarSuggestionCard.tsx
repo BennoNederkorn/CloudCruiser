@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Cog, Users, Luggage, ArrowRight, Check } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface CarSuggestionCardProps {
   car: {
@@ -29,6 +30,11 @@ const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProp
           alt={car.name}
           className="w-full h-full object-cover"
         />
+        <div className="absolute top-4 left-4">
+          <Badge className="bg-gradient-orange text-primary-foreground border-0">
+            Our Recommendation
+          </Badge>
+        </div>
       </div>
       
       <div className="p-6">
