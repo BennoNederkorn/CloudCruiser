@@ -13,8 +13,7 @@ const mockUsers = [
     email: "sarah.johnson@email.com",
     location: "Munich, Germany",
     role: "customer",
-    enviroment: "mountainous terrain",
-    time: "14.07.2025",
+    enviroment: "mountainous terrain"
   },
   {
     name: "Michael Chen",
