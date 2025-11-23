@@ -6,6 +6,7 @@ interface CarSuggestionCardProps {
     name: string;
     model: string;
     imageUrl: string;
+    imageBase64: string;
     pricePerDay: number;
     currency: string;
     features: string[];
@@ -24,7 +25,7 @@ const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProp
     <div className="bg-card rounded-xl overflow-hidden shadow-elevated">
       <div className="relative h-64 bg-gradient-to-br from-muted to-secondary">
         <img
-          src={car.imageUrl}
+          src={car.imageBase64}
           alt={car.name}
           className="w-full h-full object-cover"
         />

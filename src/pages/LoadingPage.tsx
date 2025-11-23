@@ -1,6 +1,16 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import { generateNanoBananaImage } from "@/lib/gemini";
+
+const mockImageUrl = [
+    "https://vehicle-pictures-prod.orange.sixt.com/5144354/ffffff/18_1.png",
+    "https://vehicle-pictures-prod.orange.sixt.com/143707/9d9d9c/18_1.png",
+    "https://vehicle-pictures-prod.orange.sixt.com/143456/ffffff/18_1.png",
+    "https://vehicle-pictures-prod.orange.sixt.com/142547/ffffff/18_1.png",
+    "https://vehicle-pictures-prod.orange.sixt.com/143056/9d9d9c/18_1.png",
+    "https://vehicle-pictures-prod.orange.sixt.com/143210/1e1e1e/18_1.png"
+];
 
 const LoadingPage = () => {
   const location = useLocation();
@@ -16,7 +26,16 @@ const LoadingPage = () => {
         
         // Example: Call AI model for personalized suggestions
         // const aiSuggestions = await getAISuggestions(customer);
-        
+        console.log("Generating image with Gemini API...");
+        const generatedImageBase64 = await generateNanoBananaImage(
+            mockImageUrl[Math.floor(Math.random() * mockImageUrl.length)], 
+            { 
+                location: customer.location, 
+                time: customer.pickupDate, 
+                role: customer.role, 
+                enviroment: customer.enviroment 
+            }
+        );
         // Simulate loading time (remove this in production)
         await new Promise(resolve => setTimeout(resolve, 2000));
         
@@ -24,6 +43,7 @@ const LoadingPage = () => {
         navigate("/rental", { 
           state: { 
             customer,
+            generatedImageBase64: `data:image/png;base64,${generatedImageBase64}`,
             // Add any data fetched from APIs here
             // recommendations,
             // aiSuggestions,
