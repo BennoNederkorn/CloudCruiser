@@ -136,7 +136,8 @@ const RentalFlow = () => {
  // });
 
   console.log("RentalFlow received customer:", customer);
-
+  
+  const [upsells, setUpsells] = useState<any[] | null>(null);
   const [currentUpsellIndex, setCurrentUpsellIndex] = useState(0);
   const [acceptedUpsells, setAcceptedUpsells] = useState<string[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
