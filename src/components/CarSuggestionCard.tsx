@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Gauge, Users, Luggage, ArrowRight, Check } from "lucide-react";
 
@@ -9,6 +8,7 @@ interface CarSuggestionCardProps {
     imageUrl: string;
     imageBase64: string;
     pricePerDay: number;
+    currency: string;
     features: string[];
     specs: {
       mileage: string;
@@ -29,11 +29,6 @@ const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProp
           alt={car.name}
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-4 left-4">
-          <Badge className="bg-gradient-orange text-primary-foreground border-0">
-            Our Recommendation
-          </Badge>
-        </div>
       </div>
       
       <div className="p-6">
@@ -65,7 +60,7 @@ const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProp
         </div>
         
         <div className="mt-6 flex items-baseline gap-1">
-          <span className="text-3xl font-bold text-foreground">+ us${car.pricePerDay}</span>
+          <span className="text-3xl font-bold text-foreground">+ {car.currency}{car.pricePerDay}</span>
           <span className="text-muted-foreground">/day</span>
         </div>
 

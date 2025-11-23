@@ -6,7 +6,7 @@ import CarSuggestionCard from "@/components/CarSuggestionCard";
 import UpsellPrompt from "@/components/UpsellPrompt";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Currency } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -28,6 +28,7 @@ const currentCar = {
   model: "SEDAN 2024",
   imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80",
   pricePerDay: 39.99,
+  currency: "£",
 };
 
 const mockCars = [
@@ -38,6 +39,7 @@ const mockCars = [
     imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
     imageBase64: "",
     pricePerDay: 14.58,
+    currency: "£",
     features: [
       "Luxurious Comfort",
       "Experience elegance and unrivaled comfort.",
@@ -57,6 +59,7 @@ const mockCars = [
     imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
     imageBase64: "",
     pricePerDay: 16.99,
+    currency: "£",
     features: [
       "Premium Performance",
       "Power meets sophistication on every drive.",
@@ -76,6 +79,7 @@ const mockCars = [
     imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
     imageBase64: "",
     pricePerDay: 15.75,
+    currency: "£",
     features: [
       "Dynamic Design",
       "Sleek aesthetics with powerful handling.",
@@ -96,6 +100,7 @@ const mockUpsells = [
     title: "Premium Insurance Coverage",
     description: "Drive with peace of mind. Full coverage including theft, damage, and roadside assistance.",
     price: 12.99,
+    currency: "£",
     icon: "🛡️",
   },
   {
@@ -103,6 +108,7 @@ const mockUpsells = [
     title: "GPS Navigation System",
     description: "Never get lost. Premium GPS with real-time traffic updates and points of interest.",
     price: 8.99,
+    currency: "£",
     icon: "🗺️",
   },
   {
@@ -110,6 +116,7 @@ const mockUpsells = [
     title: "Additional Driver",
     description: "Share the driving. Add an additional driver to your rental agreement.",
     price: 15.00,
+    currency: "£",
     icon: "👥",
   },
 ];
@@ -134,19 +141,19 @@ const RentalFlow = () => {
   const handleUpgrade = (car: typeof mockCars[0]) => {
     setHasUpgraded(true);
     setUpgradedCar(car);
-    toast.success(`Upgraded to ${car.name}!`);
+    toast.success(`Upgraded to {car.currency}{car.name}!`);
   };
 
   const handleAccept = () => {
     const currentUpsell = mockUpsells[currentUpsellIndex];
     setAcceptedUpsells([...acceptedUpsells, currentUpsell.id]);
-    toast.success(`${currentUpsell.title} added to your rental`);
+    toast.success(`{car.currency}{currentUpsell.title} added to your rental`);
     moveToNext();
   };
 
   const handleDecline = () => {
     const currentUpsell = mockUpsells[currentUpsellIndex];
-    toast(`${currentUpsell.title} declined`);
+    toast(`{car.currency}{currentUpsell.title} declined`);
     moveToNext();
   };
 
@@ -182,12 +189,12 @@ const RentalFlow = () => {
             <div className="bg-secondary rounded-lg p-6 mb-6">
                 <div className="flex justify-between items-center mb-2">
                     <span className="text-foreground">Base rental {currentCar.name}</span>
-                    <span className="text-foreground">${currentCar.pricePerDay}/day</span>
+                    <span className="text-foreground">{currentCar.currency}{currentCar.pricePerDay}/day</span>
                 </div>
               {hasUpgraded && upgradedCar && (
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-foreground">Car upgrade to {upgradedCar.name}</span>
-                  <span className="text-foreground">+${upgradedCar.pricePerDay}/day</span>
+                  <span className="text-foreground">+{upgradedCar.currency}{upgradedCar.pricePerDay}/day</span>
                 </div>
               )}
               {acceptedUpsells.map(id => {
@@ -195,13 +202,13 @@ const RentalFlow = () => {
                 return upsell ? (
                   <div key={id} className="flex justify-between items-center mb-2">
                     <span className="text-foreground">{upsell.title}</span>
-                    <span className="text-foreground">+${upsell.price}/day</span>
+                    <span className="text-foreground">+{upsell.currency}{upsell.price}/day</span>
                   </div>
                 ) : null;
               })}
               <div className="border-t border-border mt-4 pt-4 flex justify-between items-center">
                 <span className="text-xl font-bold text-foreground">Total per day</span>
-                <span className="text-2xl font-bold text-accent">${calculateTotal()}</span>
+                <span className="text-2xl font-bold text-accent">{currentCar.currency}{calculateTotal()}</span>
               </div>
             </div>
             <Button

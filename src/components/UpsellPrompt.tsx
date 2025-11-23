@@ -7,6 +7,7 @@ interface UpsellPromptProps {
     title: string;
     description: string;
     price: number;
+    currency: string;
     icon: string;
   };
   onAccept: () => void;
@@ -27,7 +28,7 @@ const UpsellPrompt = ({ upsell, onAccept, onDecline, currentStep, totalSteps }: 
             <h3 className="text-xl font-bold text-foreground">{upsell.title}</h3>
             <p className="text-muted-foreground mt-1">{upsell.description}</p>
             <div className="mt-3 flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-accent">+ us${upsell.price}</span>
+              <span className="text-2xl font-bold text-accent">+{upsell.currency}{upsell.price}</span>
               <span className="text-muted-foreground text-sm">/day</span>
             </div>
           </div>
