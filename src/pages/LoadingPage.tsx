@@ -4,6 +4,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { generateNanoBananaImage } from "@/lib/gemini";
 import { useCarData } from "@/lib/CarDataProvider";
 import { base64ToBlob } from "@/lib/utils";
+// import Marcus Thorne Json Dict
+import dictThorn from "@/lib/MarcusThorne.json";
+import dictMiller from "@/lib/MillerFamily.json";
 
 const LoadingPage = () => {
   const location = useLocation();
@@ -19,13 +22,37 @@ const LoadingPage = () => {
 
         // Example: Fetch car recommendations
         // const recommendations = await fetchCarRecommendations(customer);
+
+        // Select the appropriate dict based on customer ID
+        let dict;
+        // Default recommendations if no specific dict is found
+        const hero_recommendations = formattedCars[0].id;
+        const alternative_recommendation_1 = formattedCars[1].id;
+        const alternative_recommendation_2 = formattedCars[2].id;
+        if (customer.id === "Marcus Thorne") {
+          const hero_recommendations = dictThorn.SmartRecommendationEngine.VehicleSelection.hero_recommendation.vehicle_id;
+          const alternative_recommendation_1 = dictThorn.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[0].vehicle_id;
+          const alternative_recommendation_2 = dictThorn.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[1].vehicle_id;
+        } else if (customer.id === "Family Miller") {
+          const hero_recommendations = dictMiller.SmartRecommendationEngine.VehicleSelection.hero_recommendation.vehicle_id;
+          const alternative_recommendation_1 = dictMiller.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[0].vehicle_id;
+          const alternative_recommendation_2 = dictMiller.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[1].vehicle_id;
+        }
         
+
+        // remove cars from formattedCars that are not in the recommendations
+        const recommendedCars = formattedCars.filter(car => 
+            car.id === hero_recommendations || 
+            car.id === alternative_recommendation_1 || 
+            car.id === alternative_recommendation_2
+        );
+
         // Example: Call AI model for personalized suggestions
         // const aiSuggestions = await getAISuggestions(customer);
         console.log("Generating image with Gemini API...");
 
         // Call Gemini to generate the background image for all formatted cars
-        const generatedImages = await Promise.all(formattedCars.map(async (car) => {
+        const generatedImages = await Promise.all(recommendedCars.map(async (car) => {
             const generatedImageBase64 = await generateNanoBananaImage(
                 car.imageUrl, 
                 { 
@@ -43,7 +70,7 @@ const LoadingPage = () => {
         }));
 
         // Attach generated images to corresponding cars
-        formattedCars.forEach((car, index) => {
+        recommendedCars.forEach((car, index) => {
             car.imageBase64 = generatedImages[index];
         });
 
@@ -54,7 +81,7 @@ const LoadingPage = () => {
             customer,
             //generatedImageBase64: `data:image/png;base64,${generatedImageBase64}`,
             // Pass the formatted cars to the next page
-            cars: formattedCars,
+            cars: recommendedCars,
           } 
         });
       } catch (error) {
