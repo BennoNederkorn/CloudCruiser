@@ -15,6 +15,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { FormattedCar } from "@/lib/deals";
+import { getUpsellsForUser } from "@/lib/Upsell"; 
+import { generateProfileFromFiles } from "@/lib/ScrapeToOutputProfile";
+import { generatePersonalizedUpsellsFromObject } from "@/lib/Upsell";
 
 // Mock data - will be replaced with API calls
 const defaultCustomer = {
@@ -29,7 +32,7 @@ const currentCar = {
   model: "SEDAN 2024",
   imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80",
   pricePerDay: 39.99,
-  currency: "£",
+  currency: "$",
 };
 
 const mockCars = [
@@ -40,7 +43,7 @@ const mockCars = [
     imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
     imageBase64: "",
     pricePerDay: 14.58,
-    currency: "£",
+    currency: "$",
     features: [
       "Luxurious Comfort",
       "Experience elegance and unrivaled comfort.",
@@ -60,7 +63,7 @@ const mockCars = [
     imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
     imageBase64: "",
     pricePerDay: 16.99,
-    currency: "£",
+    currency: "$",
     features: [
       "Premium Performance",
       "Power meets sophistication on every drive.",
@@ -80,7 +83,7 @@ const mockCars = [
     imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
     imageBase64: "",
     pricePerDay: 15.75,
-    currency: "£",
+    currency: "$",
     features: [
       "Dynamic Design",
       "Sleek aesthetics with powerful handling.",
@@ -101,7 +104,7 @@ const mockUpsells = [
     title: "Premium Insurance Coverage",
     description: "Drive with peace of mind. Full coverage including theft, damage, and roadside assistance.",
     price: 12.99,
-    currency: "£",
+    currency: "$",
     icon: "🛡️",
   },
   {
@@ -109,7 +112,7 @@ const mockUpsells = [
     title: "GPS Navigation System",
     description: "Never get lost. Premium GPS with real-time traffic updates and points of interest.",
     price: 8.99,
-    currency: "£",
+    currency: "$",
     icon: "🗺️",
   },
   {
@@ -117,7 +120,7 @@ const mockUpsells = [
     title: "Additional Driver",
     description: "Share the driving. Add an additional driver to your rental agreement.",
     price: 15.00,
-    currency: "£",
+    currency: "$",
     icon: "👥",
   },
 ];
@@ -141,6 +144,30 @@ const RentalFlow = () => {
   const [upgradedCar, setUpgradedCar] = useState<typeof mockCars[0] | null>(null);
   const [showCarousel, setShowCarousel] = useState(true);
 
+  useEffect(() => {
+    const fetchUpsells = async () => {
+      console.log("RentalFlow received customer:", customer);
+      let personalizedUpsells = null;
+
+      if (customer.name === "Iulia Pasov") {
+        const profile = await generateProfileFromFiles('/scrapeOutput/Iulia.txt', '/vehicles.json');
+        console.log("profile: ", profile)
+        console.log("Type of profile:", typeof profile);
+        personalizedUpsells = await generatePersonalizedUpsellsFromObject(profile);
+        console.log("personalizedUpsells: ", personalizedUpsells)
+      } else if (customer.name === "Marcus Thorne") {
+        personalizedUpsells = await generatePersonalizedUpsellsFromObject("/scrapeOutputs/MarcusThorne.json");
+      } else if (customer.name === "Family Miller") {
+        personalizedUpsells = await generatePersonalizedUpsellsFromObject("/scrapeOutputs/MillerFamily.json");
+      } else {
+        personalizedUpsells = mockUpsells;
+      }
+      setUpsells(personalizedUpsells);
+    };
+
+    fetchUpsells();
+  }, [customer.name]); // Re-run the effect if the customer name changes
+
   const handleUpgrade = (car: typeof mockCars[0]) => {
     setHasUpgraded(true);
     setUpgradedCar(car);
@@ -148,20 +175,22 @@ const RentalFlow = () => {
   };
 
   const handleAccept = () => {
-    const currentUpsell = mockUpsells[currentUpsellIndex];
+    if (!upsells) return;
+    const currentUpsell = upsells[currentUpsellIndex];
     setAcceptedUpsells([...acceptedUpsells, currentUpsell.id]);
-    toast.success(`{car.currency}{currentUpsell.title} added to your rental`);
+    toast.success(`${currentCar.currency}${currentUpsell.title} added to your rental`);
     moveToNext();
   };
 
   const handleDecline = () => {
-    const currentUpsell = mockUpsells[currentUpsellIndex];
-    toast(`{car.currency}{currentUpsell.title} declined`);
+    if (!upsells) return;
+    const currentUpsell = upsells[currentUpsellIndex];
+    toast(`${currentCar.currency}${currentUpsell.title} declined`);
     moveToNext();
   };
 
   const moveToNext = () => {
-    if (currentUpsellIndex < mockUpsells.length - 1) {
+    if (upsells && currentUpsellIndex < upsells.length - 1) {
       setCurrentUpsellIndex(currentUpsellIndex + 1);
     } else {
       setShowCompletion(true);
@@ -171,7 +200,7 @@ const RentalFlow = () => {
   const calculateTotal = () => {
     let total = hasUpgraded && upgradedCar ? upgradedCar.pricePerDay + currentCar.pricePerDay : currentCar.pricePerDay;
     acceptedUpsells.forEach(id => {
-      const upsell = mockUpsells.find(u => u.id === id);
+      const upsell = upsells?.find(u => u.id === id);
       if (upsell) total += upsell.price;
     });
     return total.toFixed(2);
@@ -201,7 +230,7 @@ const RentalFlow = () => {
                 </div>
               )}
               {acceptedUpsells.map(id => {
-                const upsell = mockUpsells.find(u => u.id === id);
+                const upsell = upsells?.find(u => u.id === id);
                 return upsell ? (
                   <div key={id} className="flex justify-between items-center mb-2">
                     <span className="text-foreground">{upsell.title}</span>
@@ -273,15 +302,17 @@ const RentalFlow = () => {
           </div>
         )}
         
-        <div>
-          <UpsellPrompt
-            upsell={mockUpsells[currentUpsellIndex]}
-            onAccept={handleAccept}
-            onDecline={handleDecline}
-            currentStep={currentUpsellIndex}
-            totalSteps={mockUpsells.length}
-          />
-        </div>
+        {upsells && upsells.length > 0 && (
+          <div>
+            <UpsellPrompt
+              upsell={upsells[currentUpsellIndex]}
+              onAccept={handleAccept}
+              onDecline={handleDecline}
+              currentStep={currentUpsellIndex}
+              totalSteps={upsells.length}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
