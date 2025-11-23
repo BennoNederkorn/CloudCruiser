@@ -3,15 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { generateNanoBananaImage } from "@/lib/gemini";
 import { useCarData } from "@/lib/CarDataProvider";
-
-const mockImageUrl = [
-    "https://vehicle-pictures-prod.orange.sixt.com/5144354/ffffff/18_1.png",
-    "https://vehicle-pictures-prod.orange.sixt.com/143707/9d9d9c/18_1.png",
-    "https://vehicle-pictures-prod.orange.sixt.com/143456/ffffff/18_1.png",
-    "https://vehicle-pictures-prod.orange.sixt.com/142547/ffffff/18_1.png",
-    "https://vehicle-pictures-prod.orange.sixt.com/143056/9d9d9c/18_1.png",
-    "https://vehicle-pictures-prod.orange.sixt.com/143210/1e1e1e/18_1.png"
-];
+import { base64ToBlob } from "@/lib/utils";
 
 const LoadingPage = () => {
   const location = useLocation();
@@ -31,23 +23,36 @@ const LoadingPage = () => {
         // Example: Call AI model for personalized suggestions
         // const aiSuggestions = await getAISuggestions(customer);
         console.log("Generating image with Gemini API...");
-        const generatedImageBase64 = await generateNanoBananaImage(
-            mockImageUrl[Math.floor(Math.random() * mockImageUrl.length)], 
-            { 
-                location: customer.location, 
-                time: customer.pickupDate, 
-                role: customer.role, 
-                enviroment: customer.enviroment 
-            }
-        );
-        // // Simulate loading time (remove this in production)
-        // await new Promise(resolve => setTimeout(resolve, 2000));
-        
+
+        // Call Gemini to generate the background image for all formatted cars
+        const generatedImages = await Promise.all(formattedCars.map(async (car) => {
+            const generatedImageBase64 = await generateNanoBananaImage(
+                car.imageUrl, 
+                { 
+                    location: customer.location, 
+                    time: customer.pickupDate, 
+                    role: customer.role, 
+                    enviroment: customer.enviroment 
+                }
+            );
+            // // Simulate loading time (remove this in production)
+            // await new Promise(resolve => setTimeout(resolve, 2000));
+            const blob = base64ToBlob(generatedImageBase64, "image/png");
+            const shortUrl = URL.createObjectURL(blob);
+            return shortUrl;
+        }));
+
+        // Attach generated images to corresponding cars
+        formattedCars.forEach((car, index) => {
+            car.imageBase64 = generatedImages[index];
+        });
+
+
         // 2. Navigate to rental flow with all the data
         navigate("/rental", { 
           state: { 
             customer,
-            generatedImageBase64: `data:image/png;base64,${generatedImageBase64}`,
+            //generatedImageBase64: `data:image/png;base64,${generatedImageBase64}`,
             // Pass the formatted cars to the next page
             cars: formattedCars,
           } 
