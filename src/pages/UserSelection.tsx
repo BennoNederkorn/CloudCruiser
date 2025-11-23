@@ -6,35 +6,44 @@ import { generateNanoBananaImage } from "@/lib/gemini";
 
 const mockUsers = [
   {
-    name: "Sarah Johnson",
+    name: "Iulia Pasov",
     rentalId: "SXT-2025-4892",
-    pickupDate: "Jul 22, 2025 - 14:00",
-    returnDate: "Jul 27, 2025 - 14:00",
-    email: "sarah.johnson@email.com",
+    pickupDate: "Dec 22, 2025 - 14:00",
+    returnDate: "Dec 27, 2025 - 14:00",
+    email: "iulia.pasov@gmail.com",
     location: "Munich, Germany",
     role: "customer",
     enviroment: "mountainous terrain"
   },
   {
-    name: "Michael Chen",
+    name: "Marcus Thorne",
     rentalId: "SXT-2025-4893",
-    pickupDate: "Nov 23, 2025 - 10:00",
-    returnDate: "Nov 28, 2025 - 10:00",
-    email: "michael.chen@email.com",
+    pickupDate: "Apr 23, 2025 - 10:00",
+    returnDate: "Apr 28, 2025 - 10:00",
+    email: "marcus.thorne@gmail.com",
+    location: "New York, USA",
+    role: "customer",
+    enviroment: "urban city"
   },
   {
-    name: "Emma Rodriguez",
+    name: "Family Miller",
     rentalId: "SXT-2025-4894",
-    pickupDate: "Nov 24, 2025 - 16:00",
-    returnDate: "Nov 29, 2025 - 16:00",
-    email: "emma.rodriguez@email.com",
+    pickupDate: "Jum 24, 2025 - 16:00",
+    returnDate: "Jum 29, 2025 - 16:00",
+    email: "emma.miller@email.com",
+    location: "medetarian see, Italy",
+    role: "customer",
+    enviroment: "olive trees or landscape"
   },
   {
     name: "James Wilson",
     rentalId: "SXT-2025-4895",
-    pickupDate: "Nov 25, 2025 - 12:00",
-    returnDate: "Nov 30, 2025 - 12:00",
+    pickupDate: "March 25, 2025 - 12:00",
+    returnDate: "March 30, 2025 - 12:00",
     email: "james.wilson@email.com",
+    location: "Marocco, rabat",
+    role: "customer",
+    enviroment: "desert"
   },
 ];
 

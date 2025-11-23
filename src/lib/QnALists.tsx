@@ -5,7 +5,7 @@ export const Upsells = [
     title: "Premium Insurance Coverage",
     description: "Drive with peace of mind. Full coverage including theft, damage, and roadside assistance.",
     price: 12.99,
-    currency: "£",
+    currency: "$",
     icon: "🛡️",
   },
   {
@@ -13,7 +13,7 @@ export const Upsells = [
     title: "GPS Navigation System",
     description: "Never get lost. Premium GPS with real-time traffic updates and points of interest.",
     price: 8.99,
-    currency: "£",
+    currency: "$",
     icon: "🗺️",
   },
   {
@@ -21,7 +21,7 @@ export const Upsells = [
     title: "Additional Driver",
     description: "Share the driving. Add an additional driver to your rental agreement.",
     price: 15.00,
-    currency: "£",
+    currency: "$",
     icon: "👥",
   },
   {
@@ -29,7 +29,7 @@ export const Upsells = [
     title: "Loss Damage Waiver (LDW)",
     description: "For collision damages, scratches, bumps and theft. Enjoy the peace of mind of knowing you're protected from high costs in case your vehicle is stolen or damaged.",
     price: 19.99,
-    currency: "£",
+    currency: "$",
     icon: "🛡️",
   },
   {
@@ -37,7 +37,7 @@ export const Upsells = [
     title: "Supplemental Liability Insurance",
     description: "You are protected against claims from third parties up to a limit of USD 300,000 per accident.",
     price: 14.99,
-    currency: "£",
+    currency: "$",
     icon: "⚖️",
   },
   {
