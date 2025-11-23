@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import CustomerHeader from "@/components/CustomerHeader";
 import CurrentCarCard from "@/components/CurrentCarCard";
 import CarSuggestionCard from "@/components/CarSuggestionCard";
 import UpsellPrompt from "@/components/UpsellPrompt";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { toast } from "sonner"; 
 import { ArrowRight, Check, Currency } from "lucide-react";
 import {
   Carousel,
@@ -14,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { FormattedCar } from "@/lib/deals";
 
 // Mock data - will be replaced with API calls
 const defaultCustomer = {
@@ -123,10 +124,12 @@ const mockUpsells = [
 
 const RentalFlow = () => {
   const location = useLocation();
-  const {customer, generatedImageBase64} = location.state || {customer: defaultCustomer, generatedImageBase64: null};
-  // for all mockCars set imageUrl to generatedImageBase64
-  mockCars.forEach(car => {
-    car.imageBase64 = generatedImageBase64;
+  // Receive cars from the loading page, fallback to mockCars if not provided
+  const {customer, generatedImageBase64, cars} = location.state || {customer: defaultCustomer, generatedImageBase64: null, cars: mockCars};
+
+  const [allCars, setAllCars] = useState<FormattedCar[]>(() => {
+    // Set the generated image for each car
+    return cars.map((car: FormattedCar) => ({ ...car, imageBase64: generatedImageBase64 }));
   });
 
   console.log("RentalFlow received customer:", customer);
@@ -245,7 +248,7 @@ const RentalFlow = () => {
               }}
             >
               <CarouselContent className="-ml-2 md:-ml-4">
-                {mockCars.map((car) => (
+                {allCars.map((car) => (
                   <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
                     <CarSuggestionCard 
                       car={car} 
