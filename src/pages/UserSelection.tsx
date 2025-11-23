@@ -6,14 +6,14 @@ import { generateNanoBananaImage } from "@/lib/gemini";
 
 const mockUsers = [
   {
-    name: "Sarah Johnson",
+    name: "The Miller Family",
     rentalId: "SXT-2025-4892",
     pickupDate: "Jul 22, 2025 - 14:00",
     returnDate: "Jul 27, 2025 - 14:00",
     email: "sarah.johnson@email.com",
-    location: "Munich, Germany",
+    location: "Seville, Spain",
     role: "customer",
-    enviroment: "mountainous terrain"
+    enviroment: "beach or shoreline",
   },
   {
     name: "Michael Chen",
@@ -21,20 +21,29 @@ const mockUsers = [
     pickupDate: "Nov 23, 2025 - 10:00",
     returnDate: "Nov 28, 2025 - 10:00",
     email: "michael.chen@email.com",
+    location: "New York, USA",
+    role: "customer",
+    enviroment: "urban cityscape",
   },
   {
-    name: "Emma Rodriguez",
-    rentalId: "SXT-2025-4894",
-    pickupDate: "Nov 24, 2025 - 16:00",
-    returnDate: "Nov 29, 2025 - 16:00",
-    email: "emma.rodriguez@email.com",
+    name: "Iulia Passov",
+    rentalId: "SXT-2025-4893",
+    pickupDate: "Nov 23, 2025 - 10:00",
+    returnDate: "Nov 28, 2025 - 10:00",
+    email: "michael.chen@email.com",
+    location: "New York, USA",
+    role: "customer",
+    enviroment: "urban cityscape",
   },
   {
-    name: "James Wilson",
-    rentalId: "SXT-2025-4895",
-    pickupDate: "Nov 25, 2025 - 12:00",
-    returnDate: "Nov 30, 2025 - 12:00",
-    email: "james.wilson@email.com",
+    name: "Michael Chen",
+    rentalId: "SXT-2025-4893",
+    pickupDate: "Nov 23, 2025 - 10:00",
+    returnDate: "Nov 28, 2025 - 10:00",
+    email: "michael.chen@email.com",
+    location: "New York, USA",
+    role: "customer",
+    enviroment: "urban cityscape",
   },
 ];
 

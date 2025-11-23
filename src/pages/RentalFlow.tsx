@@ -125,12 +125,12 @@ const mockUpsells = [
 const RentalFlow = () => {
   const location = useLocation();
   // Receive cars from the loading page, fallback to mockCars if not provided
-  const {customer, generatedImageBase64, cars} = location.state || {customer: defaultCustomer, generatedImageBase64: null, cars: mockCars};
+  const {customer, cars} = location.state || {customer: defaultCustomer, cars: mockCars};
 
-  const [allCars, setAllCars] = useState<FormattedCar[]>(() => {
+  //const [allCars, setAllCars] = useState<FormattedCar[]>(() => {
     // Set the generated image for each car
-    return cars.map((car: FormattedCar) => ({ ...car, imageBase64: generatedImageBase64 }));
-  });
+   // return cars.map((car: FormattedCar) => ({ ...car, imageBase64: generatedImageBase64 }));
+ // });
 
   console.log("RentalFlow received customer:", customer);
 
@@ -248,7 +248,7 @@ const RentalFlow = () => {
               }}
             >
               <CarouselContent className="-ml-2 md:-ml-4">
-                {allCars.map((car) => (
+                {cars.map((car) => (
                   <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
                     <CarSuggestionCard 
                       car={car} 
