@@ -1,0 +1,83 @@
+﻿[dotenv@17.2.3] injecting env (4) from .env -- tip: ÔÜÖ´©Å  enable debug logging with { debug: true }
+Starting pipeline for: Iulia Pasov
+Searching for Iulia Pasov on LinkedIn...
+Found LinkedIn profile: https://de.linkedin.com/in/iulia-pasov
+Triggering scrapers...
+Scraping https://de.linkedin.com/in/iulia-pasov...
+Phantombuster: Scraping https://de.linkedin.com/in/iulia-pasov...
+Phantombuster: Launched agent, container ID: 1784675964392285
+Phantombuster: Container status: finished (attempt 1/60)
+Phantombuster: Agent data: {
+  "id": "6160568983087454",
+  "scriptOrgName": "phantombuster",
+  "scriptId": "11108",
+  "script": "Sales Navigator Profile Scraper.js",
+  "branch": "master",
+  "environment": "release",
+  "argument": "{\n\t\"numberOfProfilesPerLaunch\": 1,\n\t\"saveImg\": false,\n\t\"takeScreenshot\": false,\n\t\"spreadsheetUrl\": \"https://de.linkedin.com/in/iulia-pasov\",\n\t\"identities\": [\n\t\t{\n\t\t\t\"identityId\": \"2217361026503532\",\n\t\t\t\"sessionCookie\": \"AQEFARABAAAAABoaoNMAAAGagpe3PgAAAZqmpGNXTgAAs3VybjpsaTplbnRlcnByaXNlQXV0aFRva2VuOmVKeGpaQUFDV1RhOVZTQmEyWC9wR1JDdFpudnBFeU9JVVpFOStUMllFYk4yb2pJREl3QzBhUWtzXnVybjpsaTplbnRlcnByaXNlUHJvZmlsZToodXJuOmxpOmVudGVycHJpc2VBY2NvdW50OjQ4Njk0NDQyNiw1OTI0MjIzNDgpXnVybjpsaTptZW1iZXI6OTM5NzI3MjgwH79LyzX3vP5jo41Isp9IRL6rCrgAN9zaCItvGaCDtUrLoL5ED5p33gcFqoubTBU3PNApvDCSzC0wnEhnZXfb6shspIEQ-I8slrVtEX2ZBhTpq4JOmkq_s4WgoNjne14sKxEuExfKX8g7ckA8hKXmdgEmULbhrfyyE9othD2A61v5F5kJTUy-AUxpGBarL42mNTK0tQ\",\n\t\t\t\"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0\"\n\t\t}\n\t],\n\t\"emailChooser\": \"none\"\n}",
+  "code": null,
+  "launchType": "manually",
+  "nbLaunches": 9,
+  "s3Folder": "P78tpokPlp97EbIR6An4iw",
+  "orgS3Folder": "PNaRoAqBYKM",
+  "updatedAt": 1763852428899,
+  "name": "Untitled Sales Navigator Profile Scraper",
+  "fileMgmt": "mix",
+  "maxParallelism": 1,
+  "notifications": {
+    "mailManualExitError": true,
+    "mailManualTimeError": true,
+    "mailManualExitSuccess": false,
+    "mailManualLaunchError": true,
+    "mailAutomaticExitError": true,
+    "mailAutomaticTimeError": true,
+    "mailAutomaticExitSuccess": false,
+    "mailAutomaticLaunchError": true
+  },
+  "lastEndType": "finished",
+  "wasSetupValidWhenSubmittedByTheFrontend": true
+}
+Phantombuster: Fetching results from: https://phantombuster.s3.amazonaws.com/PNaRoAqBYKM/P78tpokPlp97EbIR6An4iw/result.json
+Phantombuster: Successfully fetched 1 results
+Phantombuster: Scraping complete for https://de.linkedin.com/in/iulia-pasov
+DEBUG: Scraper Results: [
+  [
+    {
+      "salesNavigatorUrl": "https://www.linkedin.com/sales/lead/ACwAAAlG2s0BHCCwBmdYfCxcNLbo_FDOXx7BEzU,name,undefined",
+      "firstName": "Iulia",
+      "lastName": "Pasov",
+      "fullName": "Iulia Pasov",
+      "location": "Bayern, Deutschland",
+      "headline": "Data Science at SIXT",
+      "connectionDegree": "3rd",
+      "numberOfSharedConnections": 0,
+      "currentCompanyDescription": "",
+      "currentCompanyLocation": "Pullach im Isartal, Bavaria, Germany",
+      "currentCompanyName": "SIXT",
+      "currentCompanyUrl": "https://www.linkedin.com/sales/company/17120",
+      "currentCompanyId": "17120",
+      "currentJobTitle": "Engineering Manager Data Science",
+      "summary": "",
+      "linkedinProfileUrl": "https://www.linkedin.com/in/iulia-pasov",
+      "hasPendingInvitation": false,
+      "email": "",
+      "websites": [],
+      "addresses": [],
+      "phoneNumbers": [],
+      "twitterProfileUrl": "https://twitter.com/IuliaPasov",
+      "twitterHandle": "IuliaPasov",
+      "mutualConnectionsUrl": "https://www.linkedin.com/sales/search/people/list/shared-connections/ACwAAAlG2s0BHCCwBmdYfCxcNLbo_FDOXx7BEzU",
+      "connectionsUrl": "https://www.linkedin.com/sales/search/people/list/linkedin-connections/ACwAAAlG2s0BHCCwBmdYfCxcNLbo_FDOXx7BEzU",
+      "query": "https://de.linkedin.com/in/iulia-pasov",
+      "timestamp": "2025-11-22T18:26:05.046Z",
+      "sourceUserId": "939727280",
+      "sourceUserName": "Emily Pommerer"
+    }
+  ]
+]
+Extracted 0 images for analysis.
+
+-----------------------------------
+Analysis Result:
+-----------------------------------
+No images found to analyze.
