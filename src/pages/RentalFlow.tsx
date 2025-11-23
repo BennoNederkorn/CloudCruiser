@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import CustomerHeader from "@/components/CustomerHeader";
 import CurrentCarCard from "@/components/CurrentCarCard";
 import CarSuggestionCard from "@/components/CarSuggestionCard";
 import UpsellPrompt from "@/components/UpsellPrompt";
 import { Button } from "@/components/ui/button";
-import { ApiVehicle } from "@/types";
 import { toast } from "sonner";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Currency } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -29,6 +28,7 @@ const currentCar = {
   model: "SEDAN 2024",
   imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80",
   pricePerDay: 39.99,
+  currency: "£",
 };
 
 const mockCars = [
@@ -38,6 +38,7 @@ const mockCars = [
     model: "330i XDRIVE",
     imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
     pricePerDay: 14.58,
+    currency: "£",
     features: [
       "Luxurious Comfort",
       "Experience elegance and unrivaled comfort.",
@@ -56,6 +57,7 @@ const mockCars = [
     model: "C300 4MATIC",
     imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
     pricePerDay: 16.99,
+    currency: "£",
     features: [
       "Premium Performance",
       "Power meets sophistication on every drive.",
@@ -74,6 +76,7 @@ const mockCars = [
     model: "QUATTRO PREMIUM",
     imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
     pricePerDay: 15.75,
+    currency: "£",
     features: [
       "Dynamic Design",
       "Sleek aesthetics with powerful handling.",
@@ -94,6 +97,7 @@ const mockUpsells = [
     title: "Premium Insurance Coverage",
     description: "Drive with peace of mind. Full coverage including theft, damage, and roadside assistance.",
     price: 12.99,
+    currency: "£",
     icon: "🛡️",
   },
   {
@@ -101,6 +105,7 @@ const mockUpsells = [
     title: "GPS Navigation System",
     description: "Never get lost. Premium GPS with real-time traffic updates and points of interest.",
     price: 8.99,
+    currency: "£",
     icon: "🗺️",
   },
   {
@@ -108,6 +113,7 @@ const mockUpsells = [
     title: "Additional Driver",
     description: "Share the driving. Add an additional driver to your rental agreement.",
     price: 15.00,
+    currency: "£",
     icon: "👥",
   },
 ];
@@ -122,97 +128,23 @@ const RentalFlow = () => {
   const [hasUpgraded, setHasUpgraded] = useState(false);
   const [upgradedCar, setUpgradedCar] = useState<typeof mockCars[0] | null>(null);
   const [showCarousel, setShowCarousel] = useState(true);
-  const [allCars, setAllCars] = useState(mockCars);
-
-  useEffect(() => {
-    const fetchAndReplaceCar = async () => {
-      console.log("Starting to fetch and replace car...");
-      try {
-        // Step 1: Create a booking to get a booking ID
-        const bookingResponse = await fetch(`/api/booking`, {
-          method: "POST",
-        });
-        if (!bookingResponse.ok) throw new Error("Failed to create booking.");
-        const bookingData = await bookingResponse.json();
-        const bookingId = bookingData.id;
-        console.log("bookingId: ", bookingId);
-        
-        // Step 2: Fetch vehicles
-        const vehiclesResponse = await fetch(`/api/booking/${bookingId}/vehicles`);
-        if (!vehiclesResponse.ok) throw new Error("Failed to fetch vehicles.");
-        const responseData = await vehiclesResponse.json();
-        console.log("Full response from /vehicles:", responseData); // Log the whole object
-
-        // Assuming the array is inside a "vehicles" property
-        const dealsData = responseData.deals; 
-
-        if (dealsData && dealsData.length > 0) {
-          // Use .map() to loop over each deal and transform it into a car object
-          const updatedCars = dealsData.map((deal) => {
-            const apiCar = deal.vehicle;
-            const apiPricing = deal.pricing;
-
-            // This is the same mapping logic as before, but now inside a loop
-            return {
-              id: apiCar.id,
-              name: `${apiCar.brand} ${apiCar.model}`,
-              model: apiCar.modelAnnex,
-              imageUrl: apiCar.images[0],
-              pricePerDay: apiPricing.displayPrice.amount,
-              features: apiCar.upsellReasons.map(reason => reason.title).slice(0, 4),
-              specs: {
-                mileage: apiCar.attributes.find(attr => attr.key.includes("MILEAGE"))?.value || "N/A",
-                seats: apiCar.passengersCount,
-                luggage: apiCar.bagsCount,
-              },
-            };
-          });
-
-    //           id: "1",
-    // name: "BMW SERIES 3",
-    // model: "330i XDRIVE",
-    // imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
-    // pricePerDay: 14.58,
-    // features: [
-    //   "Luxurious Comfort",
-    //   "Experience elegance and unrivaled comfort.",
-    //   "Smart Technology",
-    //   "Drive innovation with seamless integration.",
-    // ],
-    // specs: {
-    //   mileage: "<1k miles",
-    //   seats: 5,
-    //   luggage: 4,
-    // },
-
-          // Replace the entire list of cars with the new ones from the API
-          setAllCars(updatedCars);
-        }
-      } catch (error) {
-        console.error("Error fetching car from API:", error);
-        toast.error("Could not load a recommended car from our partner.");
-      }
-    };
-
-    fetchAndReplaceCar();
-  }, []);
 
   const handleUpgrade = (car: typeof mockCars[0]) => {
     setHasUpgraded(true);
     setUpgradedCar(car);
-    toast.success(`Upgraded to ${car.name}!`);
+    toast.success(`Upgraded to {car.currency}{car.name}!`);
   };
 
   const handleAccept = () => {
     const currentUpsell = mockUpsells[currentUpsellIndex];
     setAcceptedUpsells([...acceptedUpsells, currentUpsell.id]);
-    toast.success(`${currentUpsell.title} added to your rental`);
+    toast.success(`{car.currency}{currentUpsell.title} added to your rental`);
     moveToNext();
   };
 
   const handleDecline = () => {
     const currentUpsell = mockUpsells[currentUpsellIndex];
-    toast(`${currentUpsell.title} declined`);
+    toast(`{car.currency}{currentUpsell.title} declined`);
     moveToNext();
   };
 
@@ -248,12 +180,12 @@ const RentalFlow = () => {
             <div className="bg-secondary rounded-lg p-6 mb-6">
                 <div className="flex justify-between items-center mb-2">
                     <span className="text-foreground">Base rental {currentCar.name}</span>
-                    <span className="text-foreground">${currentCar.pricePerDay}/day</span>
+                    <span className="text-foreground">{currentCar.currency}{currentCar.pricePerDay}/day</span>
                 </div>
               {hasUpgraded && upgradedCar && (
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-foreground">Car upgrade to {upgradedCar.name}</span>
-                  <span className="text-foreground">+${upgradedCar.pricePerDay}/day</span>
+                  <span className="text-foreground">+{upgradedCar.currency}{upgradedCar.pricePerDay}/day</span>
                 </div>
               )}
               {acceptedUpsells.map(id => {
@@ -261,13 +193,13 @@ const RentalFlow = () => {
                 return upsell ? (
                   <div key={id} className="flex justify-between items-center mb-2">
                     <span className="text-foreground">{upsell.title}</span>
-                    <span className="text-foreground">+${upsell.price}/day</span>
+                    <span className="text-foreground">+{upsell.currency}{upsell.price}/day</span>
                   </div>
                 ) : null;
               })}
               <div className="border-t border-border mt-4 pt-4 flex justify-between items-center">
                 <span className="text-xl font-bold text-foreground">Total per day</span>
-                <span className="text-2xl font-bold text-accent">${calculateTotal()}</span>
+                <span className="text-2xl font-bold text-accent">{currentCar.currency}{calculateTotal()}</span>
               </div>
             </div>
             <Button
@@ -304,7 +236,7 @@ const RentalFlow = () => {
               }}
             >
               <CarouselContent className="-ml-2 md:-ml-4">
-                {allCars.map((car) => (
+                {mockCars.map((car) => (
                   <CarouselItem key={car.id} className="pl-2 md:pl-4 basis-[85%]">
                     <CarSuggestionCard 
                       car={car} 

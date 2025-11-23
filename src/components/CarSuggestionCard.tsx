@@ -7,6 +7,7 @@ interface CarSuggestionCardProps {
     model: string;
     imageUrl: string;
     pricePerDay: number;
+    currency: string;
     features: string[];
     specs: {
       mileage: string;
@@ -58,7 +59,7 @@ const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProp
         </div>
         
         <div className="mt-6 flex items-baseline gap-1">
-          <span className="text-3xl font-bold text-foreground">+ us${car.pricePerDay}</span>
+          <span className="text-3xl font-bold text-foreground">+ {car.currency}{car.pricePerDay}</span>
           <span className="text-muted-foreground">/day</span>
         </div>
 
