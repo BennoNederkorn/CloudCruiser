@@ -1,26 +1,14 @@
-# Welcome to your Lovable project
+# HackaTUM 2025 - Sixt challenge - Team Cloud Cruiser
 
-## Project info
+## What is this project about?
 
-**URL**: https://lovable.dev/projects/3494044d-4e55-477c-a0a0-9ca0649db925
+This project is a proof-of-concept for an upselling platform targeted at customers who have already booked a car. It provides an intuitive interface for users to browse and select premium vehicle upgrades for their existing reservation. The goal is to enhance the customer experience while simultaneously creating new revenue streams from confirmed bookings.
 
-## How can I edit this code?
+## What technologies are used for this project?
 
-There are several ways of editing your application.
+This project is built with a modern web stack, utilizing a JavaScript framework with Vite for a fast and efficient development workflow. It integrates with Google Cloud APIs to leverage powerful cloud services. The backend is a lightweight Node.js server, responsible for serving images.
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/3494044d-4e55-477c-a0a0-9ca0649db925) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Set Up
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
@@ -29,45 +17,15 @@ git clone <YOUR_GIT_URL>
 # Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
+# Step 3: Create Google Cloud API Key.
+echo "VITE_GOOGLE_API_KEY=yourkey" >> .env
+
+# Step 4: Install the necessary dependencies.
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 5: Start the image server
+node server.js
+
+# Step 6: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3494044d-4e55-477c-a0a0-9ca0649db925) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
