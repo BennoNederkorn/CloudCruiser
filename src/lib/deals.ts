@@ -36,6 +36,7 @@ export interface FormattedCar {
   name: string;
   model: string;
   imageUrl: string;
+  imageBase64: string;
   pricePerDay: number;
   currency: string;
   features: string[];

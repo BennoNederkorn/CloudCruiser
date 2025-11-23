@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { generateNanoBananaImage } from "@/lib/gemini";
+import { useCarData } from "@/lib/CarDataProvider";
 
 const mockImageUrl = [
     "https://vehicle-pictures-prod.orange.sixt.com/5144354/ffffff/18_1.png",
@@ -16,11 +17,14 @@ const LoadingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const customer = location.state?.customer;
+  const { loading: carsLoading, error: carsError, getFormattedCars } = useCarData();
 
   useEffect(() => {
-    // TODO: Add your API calls and AI model logic here
     const loadData = async () => {
       try {
+        // 1. Get the formatted cars from the provider
+        const formattedCars = getFormattedCars();
+
         // Example: Fetch car recommendations
         // const recommendations = await fetchCarRecommendations(customer);
         
@@ -36,17 +40,16 @@ const LoadingPage = () => {
                 enviroment: customer.enviroment 
             }
         );
-        // Simulate loading time (remove this in production)
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // // Simulate loading time (remove this in production)
+        // await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Navigate to rental flow with the customer data and any additional data
+        // 2. Navigate to rental flow with all the data
         navigate("/rental", { 
           state: { 
             customer,
             generatedImageBase64: `data:image/png;base64,${generatedImageBase64}`,
-            // Add any data fetched from APIs here
-            // recommendations,
-            // aiSuggestions,
+            // Pass the formatted cars to the next page
+            cars: formattedCars,
           } 
         });
       } catch (error) {
@@ -55,13 +58,17 @@ const LoadingPage = () => {
       }
     };
 
-    if (customer) {
+    // 3. Wait for the CarDataProvider to finish loading before proceeding
+    if (!carsLoading && customer) {
+      if (carsError) {
+        console.error("Error from CarDataProvider:", carsError);
+        // Optionally, navigate with an error state or show a message
+      }
       loadData();
-    } else {
-      // No customer data, redirect back to user selection
+    } else if (!customer) {
       navigate("/");
     }
-  }, [customer, navigate]);
+  }, [customer, navigate, carsLoading, carsError, getFormattedCars]);
 
   return (
     <div className="min-h-screen bg-gradient-dark p-4 flex items-center justify-center">

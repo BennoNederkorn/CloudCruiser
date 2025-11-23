@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { Deal, FormattedCar, CarDataContextType } from "@/types/deals";
+import { Deal, FormattedCar, CarDataContextType } from "@/lib/deals";
 
 const CarDataContext = createContext<CarDataContextType | undefined>(undefined);
 
@@ -50,6 +50,7 @@ export const CarDataProvider = ({ children }: { children: ReactNode }) => {
         name: `${displayBrandName} ${apiCar.model}`,
         model: apiCar.modelAnnex,
         imageUrl: apiCar.images[0],
+        imageBase64: "",
         pricePerDay: apiPricing.displayPrice.amount,
         currency: displayCurrency,
         features: [
