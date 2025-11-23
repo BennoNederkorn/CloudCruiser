@@ -36,6 +36,7 @@ const mockCars = [
     name: "BMW SERIES 3",
     model: "330i XDRIVE",
     imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
+    imageBase64: "",
     pricePerDay: 14.58,
     features: [
       "Luxurious Comfort",
@@ -54,6 +55,7 @@ const mockCars = [
     name: "MERCEDES C-CLASS",
     model: "C300 4MATIC",
     imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
+    imageBase64: "",
     pricePerDay: 16.99,
     features: [
       "Premium Performance",
@@ -72,6 +74,7 @@ const mockCars = [
     name: "AUDI A4",
     model: "QUATTRO PREMIUM",
     imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
+    imageBase64: "",
     pricePerDay: 15.75,
     features: [
       "Dynamic Design",
@@ -113,8 +116,14 @@ const mockUpsells = [
 
 const RentalFlow = () => {
   const location = useLocation();
-  const customer = location.state?.customer || defaultCustomer;
-  
+  const {customer, generatedImageBase64} = location.state || {customer: defaultCustomer, generatedImageBase64: null};
+  // for all mockCars set imageUrl to generatedImageBase64
+  mockCars.forEach(car => {
+    car.imageBase64 = generatedImageBase64;
+  });
+
+  console.log("RentalFlow received customer:", customer);
+
   const [currentUpsellIndex, setCurrentUpsellIndex] = useState(0);
   const [acceptedUpsells, setAcceptedUpsells] = useState<string[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
