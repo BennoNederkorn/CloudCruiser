@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Gauge, Users, Luggage, ArrowRight, Check } from "lucide-react";
+import { Cog, Users, Luggage, ArrowRight, Check } from "lucide-react";
 
 interface CarSuggestionCardProps {
   car: {
@@ -37,8 +37,8 @@ const CarSuggestionCard = ({ car, onUpgrade, isSelected }: CarSuggestionCardProp
         
         <div className="flex gap-6 mt-4 pb-4 border-b border-border">
           <div className="flex items-center gap-2">
-            <Gauge className="w-4 h-4 text-accent" />
-            <span className="text-sm text-foreground">{car.specs.mileage}</span>
+            <Cog className="w-4 h-4 text-accent" />
+            <span className="text-sm text-foreground">Automatic</span>
           </div>
           <div className="flex items-center gap-2">
             <Users className="w-4 h-4 text-accent" />
