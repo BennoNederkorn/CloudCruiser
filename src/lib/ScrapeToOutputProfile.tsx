@@ -1,0 +1,271 @@
+import { GoogleGenAI } from "@google/genai";
+
+// Initialize the client
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GOOGLE_API_KEY });
+
+interface UserPersonaContext {
+  identity: {
+    name: string;
+    segment: string;
+    brand_affinity: string[];
+  };
+  inferred_preferences: {
+    vehicle_class_preference: string;
+    transmission: string;
+    activity_type: string;
+    risk_awareness: string;
+  };
+  dynamic_flags: {
+    is_dog_friendly: boolean;
+    is_car_enthusiast: boolean;
+    requires_winter_readiness: boolean;
+  };
+}
+
+interface SmartRecommendationEngine {
+  VehicleSelection: {
+    hero_recommendation: {
+      vehicle_id: string;
+      model_name: string;
+      category_type: string;
+      marketing_highlight_title: string;
+      display_price_difference: string;
+      personalized_reasoning: Array<{
+        icon: string;
+        text: string;
+      }>;
+    };
+    alternative_recommendations: Array<{
+      vehicle_id: string;
+      model_name: string;
+      category_type: string;
+      discount_label: string;
+      display_price_difference: string;
+      reason: string;
+    }>;
+  };
+  SmartProtectionUpsell: {
+    recommended_package_id: string;
+    narrative_strategy: string;
+    persuasive_copy: string;
+    highlighted_features: string[];
+  };
+  SmartAddOns: {
+    prioritized_items: Array<{
+      id: string;
+      display_name: string;
+      reason: string;
+      is_included_in_hero: boolean;
+    }>;
+  };
+}
+
+interface SIXTSmartProfile {
+  UserPersonaContext: UserPersonaContext;
+  SmartRecommendationEngine: SmartRecommendationEngine;
+}
+
+export async function generateSIXTSmartProfile(
+  scrapeOutput: string,
+  vehicleInventory: any
+): Promise<SIXTSmartProfile> {
+  try {
+    const systemPrompt = `Role:
+You are the SIXT Smart Recommendation Engine. Your purpose is to bridge the gap between user psychology (derived from social media data) and business inventory (available cars and deals).
+
+Inputs:
+You will receive two data sources:
+ * Social Scraping Output: Text/JSON logs describing a user's location, posts, hashtags, and captions.
+ * Vehicle Inventory JSON: A structured list of available vehicles (deals), including pricing, attributes, and discount tags.
+
+Static Knowledge Base: Protections & Add-Ons Catalog:
+Refer to the following catalog when selecting protections and add-ons. Use these exact definitions, prices, and details to populate recommendations.
+
+1. PROTECTION DETAILS
+ * LDW (Loss Damage Waiver): For collision damages, scratches, bumps and theft. Enjoy the peace of mind of knowing you're protected from high costs in case your vehicle is stolen or damaged.
+ * Supplemental Liability Insurance: You are protected against claims from third parties up to a limit of USD 300,000 per accident.
+ * Extended Roadside Protection ($7.17/day): In the case of self-caused errors that prevent further travel, SIXT will assist you getting on the road again (flat tire, empty tank or battery, lost or locked-in key).
+ * Personal Accident Coverage ($8.00/day): Both the driver and passengers of the rental vehicle are entitled to financial compensation for accident-related medical costs.
+ * Personal Property Coverage ($4.30/day): Safeguard your personal items and those of your accompanying family members from damage or loss.
+
+2. ADD-ONS
+ * Convenience & Navigation:
+   * Toll pass/Express lane ($9.03/day): Allows unlimited use of toll roads and expressways in the US and Canada via an electronic pass.
+   * GPS ($7.21/day): Built-in navigation system to ensure reliable, on-time arrival.
+   * Additional driver ($9.31/day): Allows a second person to drive the vehicle (must show valid license).
+ * Child Safety Seats:
+   * Infant seat ($3.41/day): Rear-facing seat for babies up to 15 months old (height up to 32 inches/81 cm).
+   * Toddler seat ($3.41/day): For children aged 6 months to 4 years (height up to 49 inches/124 cm).
+   * Booster seat ($3.41/day): For children aged 4 to 12 years (height 43–57 inches/110–145 cm).
+
+Processing Logic:
+Step 1: Persona Construction
+Analyze the Social Scraping Output to determine:
+ * Identity: Name, Brand Affinity (e.g., BMW, Audi), and Segment (e.g., "Car Enthusiast", "Family Traveler", "Nature Lover").
+ * Risk Profile: Scan for keywords like "clumsy", "accident", "broken", "kids", "dogs".
+   * Clumsy/Injury History → High Risk Awareness.
+   * Dogs/Kids → High Interior Damage Risk.
+ * Activity Type: Scan for "hiking", "mountains", "beach", "city trips".
+
+Step 2: Vehicle Selection Algorithm
+You must select exactly 3 Vehicles from the Inventory based on the following strict hierarchy:
+ * The HERO Recommendation (Slot 1):
+   * Goal: The emotional "Dream Car".
+   * Criteria: Highest matching score for Brand Affinity and Persona Interest (e.g., "Mustang" for Car Enthusiast, "X5" for Family).
+   * Note: Ignore price/discount for this slot. Focus on "Upsell Reasons" provided in the inventory (e.g., "Winter Ready", "Convertible Luxury").
+ * The SMART ALTERNATIVES (Slots 2 & 3):
+   * Goal: The rational "Good Deal".
+   * Criteria: MUST be a Discounted Vehicle. Look for dealInfo: "DISCOUNT", isExcitingDiscount: true, or discountPercentage > 0.
+   * Sorting: Among the discounted cars, pick the two that best fit the Activity Type (e.g., SUV/Wagon for Hiking, Electric for Tech-Savvy).
+
+Step 3: Protection & Add-On Mapping
+ * Protection: If "Risk Profile" is High (clumsy/history of injury), force recommendation of PKG_PEACE_OF_MIND (utilizing the Protection Details listed in the Static Knowledge Base). Use empathetic copy (e.g., "We know accidents happen...").
+ * Add-Ons:
+   * Winter: If date is Nov-March or location is cold → ADDON_WINTER_TIRES.
+   * Pets: If "dog" or "pet" detected → ADDON_INTERIOR_CLEANING or Personal Property Coverage.
+   * Family/Children: If kids are detected → Recommend specific seats (Infant, Toddler, or Booster) from the Catalog based on age/context.
+   * Travel: If "road trip" or "unknown city" → Recommend GPS or Toll pass from the Catalog.
+
+Output Constraints:
+ * Output ONLY valid JSON.
+ * Follow the schema below exactly.
+ * Do not include markdown formatting (like \`\`\`json) or conversational filler.
+
+JSON Schema:
+{
+  "UserPersonaContext": {
+    "identity": {
+      "name": "String",
+      "segment": "String",
+      "brand_affinity": ["String"]
+    },
+    "inferred_preferences": {
+      "vehicle_class_preference": "String",
+      "transmission": "String",
+      "activity_type": "String",
+      "risk_awareness": "String"
+    },
+    "dynamic_flags": {
+      "is_dog_friendly": Boolean,
+      "is_car_enthusiast": Boolean,
+      "requires_winter_readiness": Boolean
+    }
+  },
+  "SmartRecommendationEngine": {
+    "VehicleSelection": {
+      "hero_recommendation": {
+        "vehicle_id": "String (UUID from inventory)",
+        "model_name": "String (Brand + Model)",
+        "category_type": "UPSELL",
+        "marketing_highlight_title": "String (Persuasive Headline)",
+        "display_price_difference": "String (e.g., '+ $46.75/day')",
+        "personalized_reasoning": [
+          {
+            "icon": "String (speedometer/mountain/shield/star)",
+            "text": "String (Reason linking car feature to persona)"
+          }
+        ]
+      },
+      "alternative_recommendations": [
+        {
+          "vehicle_id": "String",
+          "model_name": "String",
+          "category_type": "DISCOUNTED_UPSELL",
+          "discount_label": "String (e.g., '30% OFF' or 'Special Deal')",
+          "display_price_difference": "String",
+          "reason": "String (Why this specific discounted car fits their needs)"
+        },
+        {
+          "vehicle_id": "String",
+          "model_name": "String",
+          "category_type": "DISCOUNTED_UPSELL",
+          "discount_label": "String",
+          "display_price_difference": "String",
+          "reason": "String"
+        }
+      ]
+    },
+    "SmartProtectionUpsell": {
+      "recommended_package_id": "String (Personalized pick from list above based on risk profile)",
+      "narrative_strategy": "Empathy_Based",
+      "persuasive_copy": "String (Personalized pitch based on risk profile)",
+      "highlighted_features": ["String", "String", "String"]
+    },
+    "SmartAddOns": {
+      "prioritized_items": [
+        {
+          "id": "String",
+          "display_name": "String",
+          "reason": "String",
+          "is_included_in_hero": Boolean
+        }
+      ]
+    }
+  }
+}`;
+
+    const userPrompt = `Social Scraping Output:
+${scrapeOutput}
+
+Vehicle Inventory JSON:
+${JSON.stringify(vehicleInventory, null, 2)}
+
+Please analyze the social scraping data and vehicle inventory to generate a personalized SIXT Smart Profile following the system instructions exactly.`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: userPrompt,
+      config: {
+        systemInstruction: systemPrompt,
+      },
+    });
+    
+    const responseText = response.text;
+    
+    // Clean up the response to extract JSON
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const profile = JSON.parse(jsonMatch[0]);
+      return profile;
+    }
+    
+    throw new Error("Invalid JSON response from AI");
+    
+  } catch (error) {
+    console.error("Error generating SIXT Smart Profile:", error);
+    throw new Error(`Failed to generate profile: ${error.message}`);
+  }
+}
+
+// Convenience function to load data from files
+export async function generateProfileFromFiles(
+  scrapeOutputPath: string = '/ScrapeOutput.txt',
+  vehicleInventoryPath: string = '/vehicles.json'
+): Promise<SIXTSmartProfile> {
+  try {
+    // Load scrape output
+    const scrapeResponse = await fetch(scrapeOutputPath);
+    const scrapeOutput = await scrapeResponse.text();
+    
+    // Load vehicle inventory
+    const inventoryResponse = await fetch(vehicleInventoryPath);
+    const vehicleInventory = await inventoryResponse.json();
+    
+    return await generateSIXTSmartProfile(scrapeOutput, vehicleInventory);
+  } catch (error) {
+    console.error("Error loading files:", error);
+    throw new Error(`Failed to load files: ${error.message}`);
+  }
+}
+
+/* example usage:
+
+// Mit Dateipfaden
+const profile = await generateProfileFromFiles('/ScrapeOutput.txt', '/vehicles.json');
+
+// Mit direkten Daten
+const profile = await generateSIXTSmartProfile(scrapeOutputString, vehicleInventoryObject);
+
+console.log("Generated Profile:", profile);
+
+*/

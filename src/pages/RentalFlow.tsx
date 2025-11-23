@@ -15,6 +15,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { FormattedCar } from "@/lib/deals";
+import { getUpsellsForUser } from "@/lib/Upsell"; 
+import { generateProfileFromFiles } from "@/lib/ScrapeToOutputProfile";
+import { generatePersonalizedUpsellsFromObject } from "@/lib/Upsell";
 
 // Mock data - will be replaced with API calls
 const defaultCustomer = {
@@ -95,44 +98,28 @@ const mockCars = [
   },
 ];
 
-const mockUpsells = [
-  {
-    id: "1",
-    title: "Premium Insurance Coverage",
-    description: "Drive with peace of mind. Full coverage including theft, damage, and roadside assistance.",
-    price: 12.99,
-    currency: "£",
-    icon: "🛡️",
-  },
-  {
-    id: "2",
-    title: "GPS Navigation System",
-    description: "Never get lost. Premium GPS with real-time traffic updates and points of interest.",
-    price: 8.99,
-    currency: "£",
-    icon: "🗺️",
-  },
-  {
-    id: "3",
-    title: "Additional Driver",
-    description: "Share the driving. Add an additional driver to your rental agreement.",
-    price: 15.00,
-    currency: "£",
-    icon: "👥",
-  },
-];
 
 const RentalFlow = () => {
   const location = useLocation();
   // Receive cars from the loading page, fallback to mockCars if not provided
   const {customer, generatedImageBase64, cars} = location.state || {customer: defaultCustomer, generatedImageBase64: null, cars: mockCars};
-
+  
   const [allCars, setAllCars] = useState<FormattedCar[]>(() => {
     // Set the generated image for each car
     return cars.map((car: FormattedCar) => ({ ...car, imageBase64: generatedImageBase64 }));
   });
-
+  
+  const mockUpsells = null;
   console.log("RentalFlow received customer:", customer);
+
+  if(customer.name == "Iulia Pasov"){
+    const profile = generateProfileFromFiles('/scrapeOutput/Iulia.txt', '/vehicles.json');
+    const mockUpsells = generatePersonalizedUpsellsFromObject(profile);
+  }
+  else if (customer.name == "Marcus Thorne"){
+    const mockUpsells = generatePersonalizedUpsellsFromObject("/scrapeOutputs/MarcusThorne.json");
+  }
+    
 
   const [currentUpsellIndex, setCurrentUpsellIndex] = useState(0);
   const [acceptedUpsells, setAcceptedUpsells] = useState<string[]>([]);

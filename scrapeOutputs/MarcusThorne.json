@@ -1,0 +1,98 @@
+    {
+    "UserPersonaContext": {
+      "identity": {
+        "name": "Marcus Thorne",
+        "segment": "Business Elite",
+        "brand_affinity": [
+          "FORD",
+          "AUDI"
+        ]
+      },
+      "inferred_preferences": {
+        "vehicle_class_preference": "Premium/Sports",
+        "transmission": "Automatic",
+        "activity_type": "City Business Trip",
+        "risk_awareness": "Low"
+      },
+      "dynamic_flags": {
+        "is_dog_friendly": false,
+        "is_car_enthusiast": true,
+        "requires_winter_readiness": true
+      }
+    },
+    "SmartRecommendationEngine": {
+      "VehicleSelection": {
+        "hero_recommendation": {
+          "vehicle_id": "bb728740-95ac-7a86-2025-087de2dd7a66",
+          "model_name": "FORD MUSTANG",
+          "category_type": "UPSELL",
+          "marketing_highlight_title": "Arrive in Power and Style",
+          "display_price_difference": "+ $46.75/day",
+          "personalized_reasoning": [
+            {
+              "icon": "speedometer",
+              "text": "Ecoboost Power ensures you're never late to a meeting."
+            },
+            {
+              "icon": "star",
+              "text": "Convertible Luxury makes a statement the moment you pull up."
+            },
+            {
+              "icon": "shield",
+              "text": "Winter Ready tires installed to handle the November chill confidently."
+            }
+          ]
+        },
+        "alternative_recommendations": [
+          {
+            "vehicle_id": "afc8d944-b855-4a80-bace-360c43e08411",
+            "model_name": "SKODA ENYAQ",
+            "category_type": "DISCOUNTED_UPSELL",
+            "discount_label": "30% OFF",
+            "display_price_difference": "+ $9.45/day",
+            "reason": "Impress clients with a sustainable, fully electric New Vehicle choice."
+          },
+          {
+            "vehicle_id": "138cc34b-7c44-4a0d-aa4f-346d0780a68d",
+            "model_name": "OPEL ASTRA",
+            "category_type": "DISCOUNTED_UPSELL",
+            "discount_label": "10% OFF",
+            "display_price_difference": "+ $9.62/day",
+            "reason": "A smart, rational choice with built-in navigation for navigating the city efficiently."
+          }
+        ]
+      },
+      "SmartProtectionUpsell": {
+        "recommended_package_id": "PKG_EXTENDED_ROADSIDE",
+        "narrative_strategy": "Efficiency_Based",
+        "persuasive_copy": "Your schedule is tight. Don't let a flat tire or lost key cause a missed meeting.",
+        "highlighted_features": [
+          "Priority breakdown assistance",
+          "Key replacement service",
+          "Battery jump-start service"
+        ]
+      },
+      "SmartAddOns": {
+        "prioritized_items": [
+          {
+            "id": "ADDON_GPS",
+            "display_name": "GPS Navigation",
+            "reason": "Ensure reliable, on-time arrival to all client locations.",
+            "is_included_in_hero": true
+          },
+          {
+            "id": "ADDON_TOLL_PASS",
+            "display_name": "Express Lane Toll Pass",
+            "reason": "Skip the traffic and potential delays on expressways.",
+            "is_included_in_hero": false
+          },
+          {
+            "id": "ADDON_WINTER_TIRES",
+            "display_name": "Winter Tires",
+            "reason": "November roads require extra grip for high-performance driving.",
+            "is_included_in_hero": true
+          }
+        ]
+      }
+    }
+    }

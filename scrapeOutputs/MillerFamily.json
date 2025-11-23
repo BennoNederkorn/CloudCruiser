@@ -1,0 +1,105 @@
+
+  {
+    "UserPersonaContext": {
+      "identity": {
+        "name": "The Miller Family",
+        "segment": "Family Traveler",
+        "brand_affinity": [
+          "VOLKSWAGEN",
+          "SKODA"
+        ]
+      },
+      "inferred_preferences": {
+        "vehicle_class_preference": "SUV/Wagon",
+        "transmission": "Automatic",
+        "activity_type": "Road Trip to Grandparents",
+        "risk_awareness": "High"
+      },
+      "dynamic_flags": {
+        "is_dog_friendly": false,
+        "is_car_enthusiast": false,
+        "requires_winter_readiness": true
+      }
+    },
+    "SmartRecommendationEngine": {
+      "VehicleSelection": {
+        "hero_recommendation": {
+          "vehicle_id": "580f3653-c314-49a3-b0fb-9de84498edcf",
+          "model_name": "PEUGEOT 408",
+          "category_type": "UPSELL",
+          "marketing_highlight_title": "Hybrid Comfort for the Whole Tribe",
+          "display_price_difference": "+ $12.17/day",
+          "personalized_reasoning": [
+            {
+              "icon": "shield",
+              "text": "Spacious sedan layout ensures room for all three car seats."
+            },
+            {
+              "icon": "leaf",
+              "text": "Hybrid efficiency perfect for long highway stretches with the kids."
+            },
+            {
+              "icon": "star",
+              "text": "Keyless ignition allows for easy loading while managing toddlers."
+            }
+          ]
+        },
+        "alternative_recommendations": [
+          {
+            "vehicle_id": "afc8d944-b855-4a80-bace-360c43e08411",
+            "model_name": "SKODA ENYAQ",
+            "category_type": "DISCOUNTED_UPSELL",
+            "discount_label": "30% OFF",
+            "display_price_difference": "+ $9.45/day",
+            "reason": "A fully electric SUV offering maximum safety and silence for napping toddlers, at an unbeatable price."
+          },
+          {
+            "vehicle_id": "138cc34b-7c44-4a0d-aa4f-346d0780a68d",
+            "model_name": "OPEL ASTRA",
+            "category_type": "DISCOUNTED_UPSELL",
+            "discount_label": "10% OFF",
+            "display_price_difference": "+ $9.62/day",
+            "reason": "The Wagon body style provides the extra trunk capacity needed for strollers and luggage."
+          }
+        ]
+      },
+      "SmartProtectionUpsell": {
+        "recommended_package_id": "PKG_PEACE_OF_MIND",
+        "narrative_strategy": "Empathy_Based",
+        "persuasive_copy": "Traveling with little ones can be unpredictable. From spilled juice to distracted driving in new cities, we've got you covered.",
+        "highlighted_features": [
+          "LDW: Covers bumps and scratches",
+          "Personal Accident Coverage for all passengers",
+          "Personal Property Coverage for strollers/toys"
+        ]
+      },
+      "SmartAddOns": {
+        "prioritized_items": [
+          {
+            "id": "ADDON_TODDLER_SEAT_1",
+            "display_name": "Toddler Seat (x2)",
+            "reason": "Essential safety for your children aged 6 months to 4 years.",
+            "is_included_in_hero": false
+          },
+          {
+            "id": "ADDON_BOOSTER_SEAT",
+            "display_name": "Booster Seat",
+            "reason": "Required safety for your oldest child.",
+            "is_included_in_hero": false
+          },
+          {
+            "id": "ADDON_INTERIOR_CLEANING",
+            "display_name": "Pre-paid Cleaning",
+            "reason": "Don't worry about snack crumbs or spills—we handle the mess.",
+            "is_included_in_hero": false
+          },
+          {
+            "id": "ADDON_WINTER_TIRES",
+            "display_name": "Winter Tires",
+            "reason": "Mandatory safety for November travel conditions.",
+            "is_included_in_hero": true
+          }
+        ]
+      }
+    }
+  }

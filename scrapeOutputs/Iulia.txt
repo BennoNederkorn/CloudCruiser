@@ -1,0 +1,685 @@
+[dotenv@17.2.3] injecting env (4) from .env -- tip: ÔÜÖ´©Å  load multiple .env files with { path: ['.env.local', '.env'] }
+Starting pipeline for: Iulia Pasov
+Searching for Iulia Pasov on LinkedIn...
+Found LinkedIn profile: https://de.linkedin.com/in/iulia-pasov
+Searching for Iulia Pasov on Instagram...
+Found Instagram profile: https://www.instagram.com/iuliapasov/?hl=en
+Triggering scrapers...
+Scraping https://de.linkedin.com/in/iulia-pasov...
+Phantombuster: Scraping https://de.linkedin.com/in/iulia-pasov...
+Scraping https://www.instagram.com/iuliapasov/?hl=en...
+Apify: Scraping Instagram https://www.instagram.com/iuliapasov/?hl=en...
+
+Apify: Started actor run: PCc6W9KKEHaplJsnm
+Phantombuster: Launched agent, container ID: 8589597714090104
+Phantombuster: Container status: finished (attempt 1/60)
+Phantombuster: Agent data: {
+  "id": "6160568983087454",
+  "scriptOrgName": "phantombuster",
+  "scriptId": "11108",
+  "script": "Sales Navigator Profile Scraper.js",
+  "branch": "master",
+  "environment": "release",
+  "argument": "{\n\t\"numberOfProfilesPerLaunch\": 1,\n\t\"saveImg\": false,\n\t\"takeScreenshot\": false,\n\t\"spreadsheetUrl\": \"https://de.linkedin.com/in/iulia-pasov\",\n\t\"identities\": [\n\t\t{\n\t\t\t\"identityId\": \"2217361026503532\",\n\t\t\t\"sessionCookie\": \"AQEFARABAAAAABoaoNMAAAGagpe3PgAAAZqmpGNXTgAAs3VybjpsaTplbnRlcnByaXNlQXV0aFRva2VuOmVKeGpaQUFDV1RhOVZTQmEyWC9wR1JDdFpudnBFeU9JVVpFOStUMllFYk4yb2pJREl3QzBhUWtzXnVybjpsaTplbnRlcnByaXNlUHJvZmlsZToodXJuOmxpOmVudGVycHJpc2VBY2NvdW50OjQ4Njk0NDQyNiw1OTI0MjIzNDgpXnVybjpsaTptZW1iZXI6OTM5NzI3MjgwH79LyzX3vP5jo41Isp9IRL6rCrgAN9zaCItvGaCDtUrLoL5ED5p33gcFqoubTBU3PNApvDCSzC0wnEhnZXfb6shspIEQ-I8slrVtEX2ZBhTpq4JOmkq_s4WgoNjne14sKxEuExfKX8g7ckA8hKXmdgEmULbhrfyyE9othD2A61v5F5kJTUy-AUxpGBarL42mNTK0tQ\",\n\t\t\t\"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0\"\n\t\t}\n\t],\n\t\"emailChooser\": \"none\"\n}",
+  "code": null,
+  "launchType": "manually",
+  "nbLaunches": 11,
+  "s3Folder": "P78tpokPlp97EbIR6An4iw",
+  "orgS3Folder": "PNaRoAqBYKM",
+  "updatedAt": 1763852428899,
+  "name": "Untitled Sales Navigator Profile Scraper",
+  "fileMgmt": "mix",
+  "maxParallelism": 1,
+  "notifications": {
+    "mailManualExitError": true,
+    "mailManualTimeError": true,
+    "mailManualExitSuccess": false,
+    "mailManualLaunchError": true,
+    "mailAutomaticExitError": true,
+    "mailAutomaticTimeError": true,
+    "mailAutomaticExitSuccess": false,
+    "mailAutomaticLaunchError": true
+  },
+  "lastEndType": "finished",
+  "wasSetupValidWhenSubmittedByTheFrontend": true
+}
+Phantombuster: Fetching results from: https://phantombuster.s3.amazonaws.com/PNaRoAqBYKM/P78tpokPlp97EbIR6An4iw/result.json
+Phantombuster: Successfully fetched 1 results
+Phantombuster: Scraping complete for https://de.linkedin.com/in/iulia-pasov
+Apify: Instagram scraping complete
+DEBUG: Scraper Results: [
+  [
+    {
+      "salesNavigatorUrl": "https://www.linkedin.com/sales/lead/ACwAAAlG2s0BHCCwBmdYfCxcNLbo_FDOXx7BEzU,name,undefined",
+      "firstName": "Iulia",
+      "lastName": "Pasov",
+      "fullName": "Iulia Pasov",
+      "location": "Bayern, Deutschland",
+      "headline": "Data Science at SIXT",
+      "connectionDegree": "3rd",
+      "numberOfSharedConnections": 0,
+      "currentCompanyDescription": "",
+      "currentCompanyLocation": "Pullach im Isartal, Bavaria, Germany",
+      "currentCompanyName": "SIXT",
+      "currentCompanyUrl": "https://www.linkedin.com/sales/company/17120",
+      "currentCompanyId": "17120",
+      "currentJobTitle": "Engineering Manager Data Science",
+      "summary": "",
+      "linkedinProfileUrl": "https://www.linkedin.com/in/iulia-pasov",
+      "hasPendingInvitation": false,
+      "email": "",
+      "websites": [],
+      "addresses": [],
+      "phoneNumbers": [],
+      "twitterProfileUrl": "https://twitter.com/IuliaPasov",
+      "twitterHandle": "IuliaPasov",
+      "mutualConnectionsUrl": "https://www.linkedin.com/sales/search/people/list/shared-connections/ACwAAAlG2s0BHCCwBmdYfCxcNLbo_FDOXx7BEzU",
+      "connectionsUrl": "https://www.linkedin.com/sales/search/people/list/linkedin-connections/ACwAAAlG2s0BHCCwBmdYfCxcNLbo_FDOXx7BEzU",
+      "query": "https://de.linkedin.com/in/iulia-pasov",
+      "timestamp": "2025-11-22T18:26:05.046Z",
+      "sourceUserId": "939727280",
+      "sourceUserName": "Emily Pommerer"
+    }
+  ],
+  [
+    {
+      "inputUrl": "https://www.instagram.com/iuliapasov/?hl=en",
+      "id": "849689225",
+      "username": "iuliapasov",
+      "url": "https://www.instagram.com/iuliapasov",
+      "fullName": "Iulia Pasov",
+      "biography": "Data Scientist, PhD Student, AI Evangelist\nI study science and the human mind ­ƒºá\nSometimes I share photos here\nSometimes I just stalk people",
+      "externalUrls": [],
+      "followersCount": 456,
+      "followsCount": 608,
+      "hasChannel": false,
+      "highlightReelCount": 1,
+      "isBusinessAccount": false,
+      "joinedRecently": false,
+      "businessCategoryName": null,
+      "private": false,
+      "verified": false,
+      "profilePicUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.2885-19/10843960_402166793281232_2126721560_a.jpg?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=108&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=u1Q30Rt-A4IQ7kNvwEsNkNP&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfjMOfHbdXLw_-wbnVEaWoJHZbut-pQmnGwLAiTxwhdfEQ&oe=6928346D&_nc_sid=8b3546",
+      "profilePicUrlHD": "https://scontent-msp1-1.cdninstagram.com/v/t51.2885-19/10843960_402166793281232_2126721560_a.jpg?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=108&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=u1Q30Rt-A4IQ7kNvwEsNkNP&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfjMOfHbdXLw_-wbnVEaWoJHZbut-pQmnGwLAiTxwhdfEQ&oe=6928346D&_nc_sid=8b3546",
+      "igtvVideoCount": 0,
+      "relatedProfiles": [],
+      "latestIgtvVideos": [],
+      "postsCount": 324,
+      "latestPosts": [
+        {
+          "id": "2614920580551900976",
+          "type": "Image",
+          "shortCode": "CRKEGnfp38w",
+          "caption": "Matchy-matchy ­ƒÿì\n.\n.\n.\n#matchymatchy #funnysocks #funnydog #professionaldogsitter #whythehellnot #walkinstyle #dogstyle #fashionwithatwist #dogapproved",
+          "hashtags": [
+            "matchymatchy",
+            "funnysocks",
+            "funnydog",
+            "professionaldogsitter",
+            "whythehellnot",
+            "walkinstyle",
+            "dogstyle",
+            "fashionwithatwist",
+            "dogapproved"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/CRKEGnfp38w/",
+          "commentsCount": 1,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/212695348_968010800684135_3967104779203077839_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=lDMCvkyzkrkQ7kNvwFQHJWl&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjYxNDkyMDU4MDU1MTkwMDk3Ng%3D%3D.3-ccb7-5&oh=00_AfjGclZYXZm54VfAJgafx2mbMqPJvGYBitADx-uOCWgG5Q&oe=6928308E&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Munich, Germany.",
+          "likesCount": 55,
+          "timestamp": "2021-07-10T18:47:26.000Z",
+          "childPosts": [],
+          "locationName": "Munich, Germany",
+          "locationId": "213359469",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2600378344677350846",
+          "type": "Image",
+          "shortCode": "CQWZlO8HJ2-",
+          "caption": "I donated blood for the first time this year in March after IÔÇÖve read statistics on how fewer people donated during the pandemic. Unfortunately the number of people who need blood has not decreased. Each donation helps up to 3 people, whether for emergencies, cancer treatment, burn treatment, etc. ItÔÇÖs a minor thing that saves livesÔÇªand thereÔÇÖs always plenty of blood left. I am already preparing healthy blood for the next time ­ƒºøÔÇìÔÖÇ´©Å \n#blooddonation #donateblood #blutspendebayern #blutspende #schenkelebenspendeblut #myblood #sharingiscaring #donation #giveblood #shareblood",
+          "hashtags": [
+            "blooddonation",
+            "donateblood",
+            "blutspendebayern",
+            "blutspende",
+            "schenkelebenspendeblut",
+            "myblood",
+            "sharingiscaring",
+            "donation",
+            "giveblood",
+            "shareblood"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/CQWZlO8HJ2-/",
+          "commentsCount": 1,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/202818810_315835556836704_2042258259780415490_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=9-C9uGi5MOMQ7kNvwE_p5-x&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjYwMDM3ODM0NDY3NzM1MDg0Ng%3D%3D.3-ccb7-5&oh=00_Afi6Fy6Tlh1mkdmLtHqAwig4RJn22cf-PljreaAj-IpWag&oe=692830A1&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Munich, Germany.",
+          "likesCount": 58,
+          "timestamp": "2021-06-20T17:14:36.000Z",
+          "childPosts": [],
+          "locationName": "Munich, Germany",
+          "locationId": "213359469",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2541041790575025024",
+          "type": "Image",
+          "shortCode": "CNDmAumpZuA",
+          "caption": "Photoshoot with @flyswatter_1994 \n.\n.\n.\n#photoshoot #somethingdifferent #skatepark #munich #chaos #colorfulchaos #blur #experiment #cloudydays #cloudyday #blurry #blurredphotography",
+          "hashtags": [
+            "photoshoot",
+            "somethingdifferent",
+            "skatepark",
+            "munich",
+            "chaos",
+            "colorfulchaos",
+            "blur",
+            "experiment",
+            "cloudydays",
+            "cloudyday",
+            "blurry",
+            "blurredphotography"
+          ],
+          "mentions": [
+            "flyswatter_1994"
+          ],
+          "url": "https://www.instagram.com/p/CNDmAumpZuA/",
+          "commentsCount": 0,
+          "dimensionsHeight": 1077,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/166703609_116859240477631_386492544421996276_n.jpg?se=8&stp=dst-jpg_e35_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=107&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=BpKDRhZfm98Q7kNvwGJV96S&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjU0MTA0MTc5MDU3NTAyNTAyNA%3D%3D.3-ccb7-5&oh=00_AfiKN9ATezA8XkV7No4MvvwtiPwct1o_Qx_hrkjIbd2e5w&oe=69280A64&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Munich, Germany.",
+          "likesCount": 18,
+          "timestamp": "2021-03-30T20:23:28.000Z",
+          "childPosts": [],
+          "locationName": "Munich, Germany",
+          "locationId": "213359469",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2534346495199845907",
+          "type": "Image",
+          "shortCode": "CMrzrW4JJ4T",
+          "caption": "Sunday afternoons are for cozy socks and F1.\n.\n.\n.\n#sunday #sundayvibes #sundayafternoon #cozysocks #foxsocks #corgilove #corgilover #iwishihadacorgi #cozydays #coffee #coffeetime #newplace #homesweethome #newhome #f1fan #corgifan #cozyquarantine",
+          "hashtags": [
+            "sunday",
+            "sundayvibes",
+            "sundayafternoon",
+            "cozysocks",
+            "foxsocks",
+            "corgilove",
+            "corgilover",
+            "iwishihadacorgi",
+            "cozydays",
+            "coffee",
+            "coffeetime",
+            "newplace",
+            "homesweethome",
+            "newhome",
+            "f1fan",
+            "corgifan",
+            "cozyquarantine"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/CMrzrW4JJ4T/",
+          "commentsCount": 1,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/162123424_447058559845118_1695919407943134393_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=zIqOIZJ87MoQ7kNvwEN9rjZ&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjUzNDM0NjQ5NTE5OTg0NTkwNw%3D%3D.3-ccb7-5&oh=00_Afjc6gnlKWzE8v3fwDgP00Ejy-FnuiiNLOlmBpuKXzJbnQ&oe=69281E1C&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov on March 21, 2021.",
+          "likesCount": 50,
+          "timestamp": "2021-03-21T14:41:06.000Z",
+          "childPosts": [],
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2489516833466979714",
+          "type": "Image",
+          "shortCode": "CKMil65J5WC",
+          "caption": "Ich bin tripod ­ƒÖâ powered by @leki.ski.outdoor \nMy first picture this year was supposed to be from an amazing mountain drive but I was clumsy instead. \n#clumsy #snow #tripod #crutches #3legs #imalive #stillalive #myliferules #newactivity #leki #lekitrekkingpoles #iloveleki",
+          "hashtags": [
+            "clumsy",
+            "snow",
+            "tripod",
+            "crutches",
+            "3legs",
+            "imalive",
+            "stillalive",
+            "myliferules",
+            "newactivity",
+            "leki",
+            "lekitrekkingpoles",
+            "iloveleki"
+          ],
+          "mentions": [
+            "leki.ski.outdoor"
+          ],
+          "url": "https://www.instagram.com/p/CKMil65J5WC/",
+          "commentsCount": 10,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/139849460_229816225502187_8655073809840410959_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=cozdqLQt77gQ7kNvwHyjiNz&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjQ4OTUxNjgzMzQ2Njk3OTcxNA%3D%3D.3-ccb7-5&oh=00_AfgaF49GpULNBiFMLMLfLCOAOf5iaV0A0s3gqpHMpdIPTQ&oe=692835E6&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Munich, Germany.",
+          "likesCount": 24,
+          "timestamp": "2021-01-18T18:12:34.000Z",
+          "childPosts": [],
+          "locationName": "Munich, Germany",
+          "locationId": "213359469",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2392315445423615561",
+          "type": "Image",
+          "shortCode": "CEzNjj7J65J",
+          "caption": "Rainy days are better in a BMW 5 series and all days are safer in @sixtde  cars ÔØñ´©Å\n.\n.\n.\n#bmw #bmw5series #bmw5 #rainydays #rainysunday #cloudy #nature #myride #sixt #rentwithsixt #rentwithstyle #ilovecars #bestcars #carsofinstagram #lookingforadventure #onlywithsixt #staysafe #beautifulcars #myride #visitgermany #visitbavaria #discovergermany #neverstopexploring #carporn",
+          "hashtags": [
+            "bmw",
+            "bmw5series",
+            "bmw5",
+            "rainydays",
+            "rainysunday",
+            "cloudy",
+            "nature",
+            "myride",
+            "sixt",
+            "rentwithsixt",
+            "rentwithstyle",
+            "ilovecars",
+            "bestcars",
+            "carsofinstagram",
+            "lookingforadventure",
+            "onlywithsixt",
+            "staysafe",
+            "beautifulcars",
+            "visitgermany",
+            "visitbavaria",
+            "discovergermany",
+            "neverstopexploring",
+            "carporn"
+          ],
+          "mentions": [
+            "sixtde"
+          ],
+          "url": "https://www.instagram.com/p/CEzNjj7J65J/",
+          "commentsCount": 0,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/118856011_710343936183355_6340375488321326246_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=107&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=tcStRYDRRBkQ7kNvwHCJUrv&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjM5MjMxNTQ0NTQyMzYxNTU2MQ%3D%3D.3-ccb7-5&oh=00_AfgvUN-EwCjcXN33OewlP6DHZchuyw1FDGZnucVS3M_okA&oe=69282853&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Vorderri├ƒ, Bayern, Germany.",
+          "likesCount": 38,
+          "timestamp": "2020-09-06T15:30:46.000Z",
+          "childPosts": [],
+          "locationName": "Vorderri├ƒ, Bayern, Germany",
+          "locationId": "249804783",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2371443664957535959",
+          "type": "Image",
+          "shortCode": "CDpD3LmpPbX",
+          "caption": "Summer nights...sunset...wine..........\n#summer #summervibes #sunnernights #sunset #summersunsets #starnbergersee #secretspot #sunsetlover #beautifuldestinations #visitbavaria #visitgermany  #germany #bavaria #lifestile #dawn #lake #discovergermany #ilovemylife #lifestyle #iuliastayshome #iuliagoestostarnberg #colorfulsunset",
+          "hashtags": [
+            "summer",
+            "summervibes",
+            "sunnernights",
+            "sunset",
+            "summersunsets",
+            "starnbergersee",
+            "secretspot",
+            "sunsetlover",
+            "beautifuldestinations",
+            "visitbavaria",
+            "visitgermany",
+            "germany",
+            "bavaria",
+            "lifestile",
+            "dawn",
+            "lake",
+            "discovergermany",
+            "ilovemylife",
+            "lifestyle",
+            "iuliastayshome",
+            "iuliagoestostarnberg",
+            "colorfulsunset"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/CDpD3LmpPbX/",
+          "commentsCount": 3,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/117155962_319863746092164_8353309389426167287_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=SCRbe3O-3loQ7kNvwFZK26d&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjM3MTQ0MzY2NDk1NzUzNTk1OQ%3D%3D.3-ccb7-5&oh=00_AfgV6UtY79CGgDykTKbyV_WDxuRqx7pFlmaGnSfBu86UQQ&oe=69282EAB&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov on August 08, 2020.",
+          "likesCount": 45,
+          "timestamp": "2020-08-08T20:22:16.000Z",
+          "childPosts": [],
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2365520955530561069",
+          "type": "Image",
+          "shortCode": "CDUBManJEYt",
+          "caption": "Ready for the weekend ­ƒÅÄ\n.\n.\n.\n#myride #sixt #rentwithsixt #bestcars #bmw #carsofinstagram #nature #iuliagoeswherevershewants #ilovecars #lookingforadventure #instacar #beautifulcars #wheningermany #germany #bavaria #visitgermany #carsofgermany #sixtde #sixtcars #onlywithsixt #mytypeoffun #summertimefun",
+          "hashtags": [
+            "myride",
+            "sixt",
+            "rentwithsixt",
+            "bestcars",
+            "bmw",
+            "carsofinstagram",
+            "nature",
+            "iuliagoeswherevershewants",
+            "ilovecars",
+            "lookingforadventure",
+            "instacar",
+            "beautifulcars",
+            "wheningermany",
+            "germany",
+            "bavaria",
+            "visitgermany",
+            "carsofgermany",
+            "sixtde",
+            "sixtcars",
+            "onlywithsixt",
+            "mytypeoffun",
+            "summertimefun"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/CDUBManJEYt/",
+          "commentsCount": 1,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/116609201_619719758649479_6040351910474981009_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=uRgBP6Z7ylMQ7kNvwHMpNfR&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjM2NTUyMDk1NTUzMDU2MTA2OQ%3D%3D.3-ccb7-5&oh=00_Afj56A-TeZwOx7KZR9767g5xBGehl4V0oG2KMSpmEbfIig&oe=6928276B&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in BergTierPark Blindham.",
+          "likesCount": 52,
+          "timestamp": "2020-07-31T16:14:54.000Z",
+          "childPosts": [],
+          "locationName": "BergTierPark Blindham",
+          "locationId": "5967779",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2362672144542279531",
+          "type": "Image",
+          "shortCode": "CDJ5cwoJydr",
+          "caption": "View from 1.62m\n.\n.\n.\n#sunflower #sunflowers #flowers #nature #flowerfields #naturegram #solln #flowepicking #beautifulnature #nofilter #visitgermany #bavaria #germany #sunnyday #summervibes #summer #summertime #iuliastayshome",
+          "hashtags": [
+            "sunflower",
+            "sunflowers",
+            "flowers",
+            "nature",
+            "flowerfields",
+            "naturegram",
+            "solln",
+            "flowepicking",
+            "beautifulnature",
+            "nofilter",
+            "visitgermany",
+            "bavaria",
+            "germany",
+            "sunnyday",
+            "summervibes",
+            "summer",
+            "summertime",
+            "iuliastayshome"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/CDJ5cwoJydr/",
+          "commentsCount": 1,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.29350-15/116154466_285481452541568_1050808334579338896_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=108&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=vanpXj8kPSgQ7kNvwHTge3z&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjM2MjY3MjE0NDU0MjI3OTUzMQ%3D%3D.3-ccb7-5&oh=00_AfjxmS0YBKSeqQamEYapBtgev1--gjiW-eCbqMJuaEpMpQ&oe=69283194&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Munich, Germany.",
+          "likesCount": 35,
+          "timestamp": "2020-07-27T17:54:49.000Z",
+          "childPosts": [],
+          "locationName": "Munich, Germany",
+          "locationId": "213359469",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2325000668033013854",
+          "type": "Image",
+          "shortCode": "CBED8oIp1he",
+          "caption": "Spring is the season when everyone wants to be photographed.\n#spring #blossom #cherryblossom #whitelady #nature #flowers #wheninmunich #olympiapark #latergram #beautifulviews #beautifulnature #beauty #tbt #colorful #colorfulnature #lakeview #longtimenopost #visit_munich #visit_bavaria #bavaria #bayern #visit_germany #munich #discovergermany",
+          "hashtags": [
+            "spring",
+            "blossom",
+            "cherryblossom",
+            "whitelady",
+            "nature",
+            "flowers",
+            "wheninmunich",
+            "olympiapark",
+            "latergram",
+            "beautifulviews",
+            "beautifulnature",
+            "beauty",
+            "tbt",
+            "colorful",
+            "colorfulnature",
+            "lakeview",
+            "longtimenopost",
+            "visit_munich",
+            "visit_bavaria",
+            "bavaria",
+            "bayern",
+            "visit_germany",
+            "munich",
+            "discovergermany"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/CBED8oIp1he/",
+          "commentsCount": 1,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.2885-15/101943618_1330880660451846_3569337696495370602_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=3NAkBstXvgoQ7kNvwGuC8MA&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjMyNTAwMDY2ODAzMzAxMzg1NA%3D%3D.3-ccb7-5&oh=00_AfhuIToQAYDHezi3E1KING0vE4BKGCXr9M003uGpfRoR2g&oe=69281046&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Olympiapark M├╝nchen.",
+          "likesCount": 75,
+          "timestamp": "2020-06-05T18:28:19.000Z",
+          "childPosts": [],
+          "locationName": "Olympiapark M├╝nchen",
+          "locationId": "115415",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2198740078973523641",
+          "type": "Image",
+          "shortCode": "B6DfnPQoZa5",
+          "caption": "Xmas mood on ­ƒÄà .\n.\n.\n#iuliagoesto #iuliagoestovienna #iuliagoestoaustria #xmas #christmas #christmasdecor #christmasmarket #christmasinvienna #vienna #wien #visit_vienna #visit_austria #discover_vienna #discover_austria #beautifuldestinations #winterdestinations #xmastime #myadventure #woodendecoration",
+          "hashtags": [
+            "iuliagoesto",
+            "iuliagoestovienna",
+            "iuliagoestoaustria",
+            "xmas",
+            "christmas",
+            "christmasdecor",
+            "christmasmarket",
+            "christmasinvienna",
+            "vienna",
+            "wien",
+            "visit_vienna",
+            "visit_austria",
+            "discover_vienna",
+            "discover_austria",
+            "beautifuldestinations",
+            "winterdestinations",
+            "xmastime",
+            "myadventure",
+            "woodendecoration"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/B6DfnPQoZa5/",
+          "commentsCount": 0,
+          "dimensionsHeight": 1077,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.2885-15/79960749_244285483211219_1366823107795865817_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=EEGvymsWAYQQ7kNvwEjxsz3&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjE5ODc0MDA3ODk3MzUyMzY0MQ%3D%3D.3-ccb7-5&oh=00_AfhxOQF5ddZpMNi63zlMwZr7XZur-FGLNe8xbIt1BRb4Ig&oe=69280DE1&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Vienna, Austria.",
+          "likesCount": 27,
+          "timestamp": "2019-12-14T13:31:04.000Z",
+          "childPosts": [],
+          "locationName": "Vienna, Austria",
+          "locationId": "63134088",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        },
+        {
+          "id": "2126779458326242593",
+          "type": "Image",
+          "shortCode": "B2D1qYxIiUh",
+          "caption": "Secret door in Tutzing...what can be behind it?\n.\n.\n.\n#iuliagoesto #iuliagoestotutzing #secret #secretdoor #nature #curiosity #tutzing #mistery #misterydoor #beautifuldoors\n#visit_bavaria #visit_germany #discovergermany",
+          "hashtags": [
+            "iuliagoesto",
+            "iuliagoestotutzing",
+            "secret",
+            "secretdoor",
+            "nature",
+            "curiosity",
+            "tutzing",
+            "mistery",
+            "misterydoor",
+            "beautifuldoors",
+            "visit_bavaria",
+            "visit_germany",
+            "discovergermany"
+          ],
+          "mentions": [],
+          "url": "https://www.instagram.com/p/B2D1qYxIiUh/",
+          "commentsCount": 3,
+          "dimensionsHeight": 1080,
+          "dimensionsWidth": 1080,
+          "displayUrl": "https://scontent-msp1-1.cdninstagram.com/v/t51.2885-15/68736233_602425590161294_9090188153312435974_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QFclRvhqBRHBH_rHIgcRlhIKUR8SdIg2NhSqjiiISIjZ3CjwmiK46sDHxgfhmZsV6o&_nc_ohc=dOxH4b_PmxYQ7kNvwFNRRUD&_nc_gid=lIc4Q-RNA6KHNkKEa63USg&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MjEyNjc3OTQ1ODMyNjI0MjU5Mw%3D%3D.3-ccb7-5&oh=00_AfhQCVawwIR5BeZ4xdnuTadaazk3Rkmj-6ZejlGUMeNbsg&oe=6928139A&_nc_sid=8b3546",
+          "images": [],
+          "alt": "Photo by Iulia Pasov in Tutzing.",
+          "likesCount": 55,
+          "timestamp": "2019-09-06T06:38:09.000Z",
+          "childPosts": [],
+          "locationName": "Tutzing",
+          "locationId": "249827515",
+          "ownerUsername": "iuliapasov",
+          "ownerId": "849689225",
+          "isCommentsDisabled": false
+        }
+      ],
+      "fbid": "17841400756763276"
+    }
+  ]
+]
+Extracted 13 images for analysis.
+Analyzing images with Gemini...
+DEBUG: Fetching 5 images for analysis...
+DEBUG: Fetched image. Type: image/jpeg, Size: 4621 bytes
+DEBUG: Fetched image. Type: image/jpeg, Size: 59154 bytes
+DEBUG: Fetched image. Type: image/jpeg, Size: 92187 bytes
+DEBUG: Fetched image. Type: image/jpeg, Size: 242463 bytes
+DEBUG: Fetched image. Type: image/jpeg, Size: 73909 bytes
+DEBUG: Sending 5 images to Gemini.
+node.exe : DEBUG: Gemini 
+API Error. Status: 400, 
+Body: {
+In Zeile:1 Zeichen:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:\
+Users\Peter\AppData\Roaming
+\ ...
++ ~~~~~~~~~
+~~~~~~~~~
+~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (DEB  
+  UG: Gemini A...s: 400,   
+  Body: {:String) [], R    
+emoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+  "error": {
+    "code": 400,
+    "message": "API key 
+not valid. Please pass a 
+valid API key.",
+    "status": 
+"INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.goog
+leapis.com/google.rpc.Error
+Info",
+        "reason": 
+"API_KEY_INVALID",
+        "domain": 
+"googleapis.com",
+        "metadata": {
+          "service": "gener
+ativelanguage.googleapis.co
+m"
+        }
+      },
+      {
+        "@type": "type.goog
+leapis.com/google.rpc.Local
+izedMessage",
+        "locale": "en-US",
+        "message": "API 
+key not valid. Please pass 
+a valid API key."
+      }
+    ]
+  }
+}
+
+Pipeline failed: Error: 
+Gemini API error: Bad 
+Request
+    at GeminiService.analyz
+eImages (C:\Users\Peter\Clo
+udCruiser\src\lib\pipeline\
+GeminiService.ts:69:19)
+    at process.processTicks
+AndRejections (node:interna
+l/process/task_queues:105:5
+)
+    at async Pipeline.run (
+C:\Users\Peter\CloudCruiser
+\src\lib\pipeline\Pipeline.
+ts:127:26)
+    at async main (C:\Users
+\Peter\CloudCruiser\scripts
+\run-pipeline.ts:31:24)
