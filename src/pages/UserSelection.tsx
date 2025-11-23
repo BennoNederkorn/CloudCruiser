@@ -13,7 +13,7 @@ const mockUsers = [
     email: "iulia.pasov@gmail.com",
     location: "Munich, Germany",
     role: "customer",
-    enviroment: "mountain terrain, alps",
+    enviroment: "mountainous area",
   },
   {
     name: "Marcus Thorne",
@@ -28,8 +28,8 @@ const mockUsers = [
   {
     name: "Family Miller",
     rentalId: "SXT-2025-4894",
-    pickupDate: "Jum 24, 2025 - 16:00",
-    returnDate: "Jum 29, 2025 - 16:00",
+    pickupDate: "Jun 24, 2025 - 16:00",
+    returnDate: "Jun 29, 2025 - 16:00",
     email: "emma.miller@email.com",
     location: "medetarian see, Italy",
     role: "customer",

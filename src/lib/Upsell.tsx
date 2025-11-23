@@ -106,7 +106,7 @@ Please respond with a JSON array of exactly 3 upsell objects:
   }
 ]
 
-Make the descriptions feel like they were written specifically for this individual user, referencing their preferences and addressing their likely concerns. Keep it 100 characters`;
+Make the descriptions feel like they were written specifically for this individual user without addressing them directly, referencing their preferences and addressing their likely concerns. Keep it 100 characters`;
 
     const userContent = `User Profile Analysis:
 - Name: ${userProfile.UserPersonaContext.identity.name}

@@ -7,6 +7,7 @@ import { base64ToBlob } from "@/lib/utils";
 // import Marcus Thorne Json Dict
 import dictThorn from "@/lib/MarcusThorne.json";
 import dictMiller from "@/lib/MillerFamily.json";
+import { generateProfileFromFiles } from "@/lib/ScrapeToOutputProfile";
 
 const LoadingPage = () => {
   const location = useLocation();
@@ -23,21 +24,20 @@ const LoadingPage = () => {
         // Example: Fetch car recommendations
         // const recommendations = await fetchCarRecommendations(customer);
 
-        // Select the appropriate dict based on customer ID
-        let dict;
-        // Default recommendations if no specific dict is found
-        const hero_recommendations = formattedCars[0].id;
-        const alternative_recommendation_1 = formattedCars[1].id;
-        const alternative_recommendation_2 = formattedCars[2].id;
-        if (customer.id === "Marcus Thorne") {
-          const hero_recommendations = dictThorn.SmartRecommendationEngine.VehicleSelection.hero_recommendation.vehicle_id;
-          const alternative_recommendation_1 = dictThorn.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[0].vehicle_id;
-          const alternative_recommendation_2 = dictThorn.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[1].vehicle_id;
-        } else if (customer.id === "Family Miller") {
-          const hero_recommendations = dictMiller.SmartRecommendationEngine.VehicleSelection.hero_recommendation.vehicle_id;
-          const alternative_recommendation_1 = dictMiller.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[0].vehicle_id;
-          const alternative_recommendation_2 = dictMiller.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[1].vehicle_id;
+        // Use hardcoded dicts for demo purposes
+        let dict
+        if (customer.name === "Iulia Pasov") {
+          const profile = await generateProfileFromFiles('/scrapeOutput/Iulia.txt', '/vehicles.json');
+          dict = profile;
+        } else if (customer.name === "Marcus Thorne") {
+          dict = dictThorn;
+        } else if (customer.name === "Family Miller") {
+          dict = dictMiller;
         }
+
+        const hero_recommendations = dict?.SmartRecommendationEngine.VehicleSelection.hero_recommendation.vehicle_id;
+        const alternative_recommendation_1 = dict?.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[0].vehicle_id;
+        const alternative_recommendation_2 = dict?.SmartRecommendationEngine.VehicleSelection.alternative_recommendations[1].vehicle_id;
         
 
         // remove cars from formattedCars that are not in the recommendations
@@ -82,6 +82,7 @@ const LoadingPage = () => {
             //generatedImageBase64: `data:image/png;base64,${generatedImageBase64}`,
             // Pass the formatted cars to the next page
             cars: recommendedCars,
+            profile: dict,
           } 
         });
       } catch (error) {
